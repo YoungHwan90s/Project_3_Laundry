@@ -1,0 +1,36 @@
+{
+  "name": "3_project_laundry",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".prettierrc.js",
+  "scripts": {
+    "test": "jest --forceExit",
+    "test:silent": "jest --silent --forceExit",
+    "test:coverage": "jest --coverage --forceExit",
+    "test:unit": "jest __tests__/unit --forceExit",
+    "test:integration": "jest __tests__/integration --forceExit",
+    "prettify": "prettier --write *.js **/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YoungHwan90s/Project_3_Laundry.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YoungHwan90s/Project_3_Laundry/issues"
+  },
+  "homepage": "https://github.com/YoungHwan90s/Project_3_Laundry#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.28.0"
+  },
+  "devDependencies": {
+    "jest": "^29.3.1",
+    "prettier": "^2.8.1",
+    "sequelize-cli": "^6.5.2",
+    "supertest": "^6.3.3"
+  }
+}
