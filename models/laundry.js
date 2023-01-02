@@ -7,51 +7,46 @@ const { Model } = require('sequelize');
  * @return {Model} - Sequelize Model
  * **/
 module.exports = (sequelize, DataTypes) => {
-  class Posts extends Model {
+  class Laundry extends Model {
 
     static associate(models) {
       // define association here
     }
   }
 
-  Posts.init(
+  Laundry.init(
     {
-      postId: {
+      laundryId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.INTEGER,
+        primaryKey: true
       },
-      title: {
+      userId: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      content: {
-        type: DataTypes.STRING,
-      },
-      nickname: {
+      laundryName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      password: {
+      img: {
+        type: DataTypes.BLOB('medium'),
+        allowNull: true,
+      },
+      request: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      createdAt: {
+      status: {
+        type: DataTypes.STRING,
         allowNull: false,
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-      },
-      updatedAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-      },
+      }
     },
     {
       sequelize,
-      modelName: 'Posts',
+      modelName: 'Laundry',
     }
   );
-  return Posts;
+  return Laundry;
 };

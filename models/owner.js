@@ -1,25 +1,56 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
+/**
+ * @param {import("sequelize").Sequelize} sequelize - Sequelize
+ * @param {import("sequelize").DataTypes} DataTypes - Sequelize Column DataTypes
+ * @return {Model} - Sequelize Model
+ * **/
 module.exports = (sequelize, DataTypes) => {
   class Owner extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+
     static associate(models) {
       // define association here
     }
   }
-  Owner.init({
-    email: DataTypes.STRING,
-    nickname: DataTypes.STRING,
-    password: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Owner',
-  });
+
+  Owner.init(
+    {
+      ownerId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true
+      },
+      shopName: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
+      },
+      pwd: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      ownerEmail: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      ownerPhone: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      ownerAddress: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      ownerPoint: {
+        type: DataTypes.INTEGER,
+      },
+    },
+    {
+      sequelize,
+      modelName: 'Owner',
+    }
+  );
   return Owner;
 };
