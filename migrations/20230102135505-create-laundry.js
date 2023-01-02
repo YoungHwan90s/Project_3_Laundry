@@ -18,8 +18,7 @@ module.exports = {
         allowNull: false
       },
       img: {
-        type: Sequelize.BLOB('medium'),
-        allowNull: false
+        type: Sequelize.BLOB('medium')
       },
       request: {
         type: Sequelize.STRING,
@@ -28,6 +27,9 @@ module.exports = {
       status: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      createdAt: {
+        type: Sequelize.DATE
       }
     });
   },

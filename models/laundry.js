@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true
       },
       userId: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       laundryName: {
@@ -31,8 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       img: {
-        type: DataTypes.BLOB('medium'),
-        allowNull: true,
+        type: DataTypes.BLOB('medium')
       },
       request: {
         type: DataTypes.STRING,
@@ -41,10 +40,14 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      createdAt: {
+        type: DataTypes.DATE,
       }
     },
     {
       sequelize,
+      timestamps: false,
       modelName: 'Laundry',
     }
   );

@@ -43,6 +43,7 @@ class OwnerService {
 
     return allLaundries.map((laundry) => {
       return {
+        laundryId: laundry.laundryId,
         laundryName: laundry.laundryName,
         img: laundry.img,
         request: laundry.request,

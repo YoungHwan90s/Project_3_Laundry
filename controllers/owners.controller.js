@@ -19,6 +19,7 @@ class OwnersController {
       );
 
       res.status(201).json({ data: createOwnerData });
+    
     } catch (error) {
       res.status(400).json({ errorMessage: error.message });
     }
@@ -27,13 +28,18 @@ class OwnersController {
   // 사장 메인페이지
   getOwnerPoints = async (req, res, next) => {
     try {
-      const { ownerId } = res.locals.owner;
+      // const { ownerId } = res.locals.owner;
 
-      if (!ownerId) throw new Error('포인트 조회에 실패하였습니다');
+      // if (!ownerId) throw new Error('포인트 조회에 실패하였습니다');
 
-      const owner = await this.ownerService.findOwnerById(ownerId);
+      // const owner = await this.ownerService.findOwnerById(ownerId);
+      // const shopName = owner.shopName
+      // const ownerPoint = owner.ownerPoint
+      const shopName = "영환 세탁소"
+      const ownerPoint = "1,000,000"
+  
+      res.render('index', { shopName, ownerPoint })
 
-      res.status(200).json({ data: owner });
     } catch (error) {
       res.status(400).json({ errorMessage: error.message });
     }
@@ -43,7 +49,7 @@ class OwnersController {
   getLaundries = async (req, res, next) => {
     const laundries = await this.ownerService.findAllLaundries();
 
-    res.status(200).json({ data: laundries });
+    res.status(200).json({ 'laundries': laundries });
   };
 
   // 세탁서비스조회: 수거하기

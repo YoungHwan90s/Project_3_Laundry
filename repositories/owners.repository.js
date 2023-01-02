@@ -24,9 +24,9 @@ class OwnerRepository {
 
   // 사장 메인페이지
   findOwnerById = async (ownerId) => {
-    const ownerPoint = await Owner.findByPk(ownerId);
+    const owner = await Owner.findByPk(ownerId);
 
-    return ownerPoint;
+    return owner;
   };
 
   // 세탁서비스조회
