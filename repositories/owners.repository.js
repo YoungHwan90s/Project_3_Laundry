@@ -1,4 +1,4 @@
-const { Owner, Laundry, OwnerWorkList } = require('../models');
+const { User, Owner, Laundry, OwnerWorkList } = require('../models');
 
 class OwnerRepository {
   // 사장 회원가입
@@ -16,7 +16,7 @@ class OwnerRepository {
       ownerEmail,
       ownerPhone,
       ownerAddress,
-      ownerPoint
+      ownerPoint,
     });
 
     return ownerSignIn;
@@ -38,18 +38,31 @@ class OwnerRepository {
 
   // 세탁서비스조회: 수거하기
   addToMyWorks = async (ownerId, laundryId) => {
+    const createdAt = new Date();
+
+
+
     const updateMyWorkData = await OwnerWorkList.create({
       ownerId,
       laundryId,
+      createdAt,
     });
+
+    await Laundry.update(
+      {
+        status: '수거중',
+      },
+      {
+        where: { laundryId },
+      }
+    );
 
     return updateMyWorkData;
   };
 
-  // 작업내역조회
+  // 작업물조회
   findAllMyWorks = async (ownerId) => {
     const getLaundryIds = await OwnerWorkList.findAll({
-      attributes: ['laundryId'],
       where: { ownerId },
     });
 
@@ -57,9 +70,9 @@ class OwnerRepository {
       return [laundry.laundryId];
     });
 
-    const getLaundryInfo = await getLaundryId.findAll({
+    const getLaundryInfo = await Laundry.findAll({
       order: [['createdAt', 'desc']],
-      where: { laundryId: getLaundryInfo },
+      where: { laundryId: getLaundryId },
     });
 
     return getLaundryInfo;
@@ -84,7 +97,7 @@ class OwnerRepository {
 
   // 작업 취소하기
   deleteWork = async (laundryId) => {
-    const updateMyWorkData = await myWorkList.destroy({ where: laundryId });
+    const updateMyWorkData = await OwnerWorkList.destroy({ where: { laundryId } });
 
     return updateMyWorkData;
   };

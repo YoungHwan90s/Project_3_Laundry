@@ -44,6 +44,7 @@ class OwnerService {
     return allLaundries.map((laundry) => {
       return {
         laundryId: laundry.laundryId,
+        userId: laundry.userId,
         laundryName: laundry.laundryName,
         img: laundry.img,
         request: laundry.request,
@@ -66,13 +67,14 @@ class OwnerService {
     };
   };
 
-  // 작업내역조회
+  // 작업물조회
   findAllMyWorks = async (ownerId) => {
     const findAllMyWorks = await this.ownerRepository.findAllMyWorks(ownerId);
 
     return findAllMyWorks.map((work) => {
       return {
         laundryId: work.laundryId,
+        userId: work.userId,
         laundryName: work.laundryName,
         img: work.img,
         request: work.request,
@@ -105,19 +107,9 @@ class OwnerService {
 
   // 작업 취소하기
   deleteWork = async (laundryId) => {
-    const findLaundry = await this.ownerRepository.findLaundryById(laundryId);
-    if (!findLaundry) throw new Error('작업이 존재하지 않습니다.');
+    const findLaundry = await this.ownerRepository.deleteWork(laundryId);
 
-    await this.ownerRepository.deleteWork(laundryId);
-
-    return {
-      laundryId: findLaundry.laundryId,
-      laundryName: findLaundry.laundryName,
-      img: findLaundry.img,
-      request: findLaundry.request,
-      status: findLaundry.status,
-      createdAt: findLaundry.createdAt,
-    };
+    return findLaundry
   };
 }
 

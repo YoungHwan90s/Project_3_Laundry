@@ -1,3 +1,4 @@
+
 'use strict';
 const { Model } = require('sequelize');
 
@@ -7,47 +8,47 @@ const { Model } = require('sequelize');
  * @return {Model} - Sequelize Model
  * **/
 module.exports = (sequelize, DataTypes) => {
-  class Owner extends Model {
+  class User extends Model {
 
     static associate(models) {
       // define association here
     }
   }
 
-  Owner.init(
+  User.init(
     {
-      ownerId: {
+      userId: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
       },
-      shopName: {
+      ID: {
         type: DataTypes.INTEGER
       },
       pwd: {
         type: DataTypes.INTEGER
       },
-      ownerEmail: {
+      userName: {
         type: DataTypes.INTEGER,
       },
-      ownerPhone: {
+      userEmail: {
         type: DataTypes.INTEGER,
       },
-      ownerAddress: {
+      userPhone: {
         type: DataTypes.INTEGER,
       },
-      ownerPoint: {
+      userAddress: {
         type: DataTypes.INTEGER,
       },
-      createdAt: {
+      userPoint: {
         type: DataTypes.DATE,
       }
     },
     {
       sequelize,
       timestamps: false,
-      modelName: 'Owner',
+      modelName: 'User',
     }
   );
-  return Owner;
+  return User;
 };

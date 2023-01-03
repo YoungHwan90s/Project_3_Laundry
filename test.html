@@ -1,0 +1,38 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <script type="text/javascript"> 
+        var bDisplay = true; function doDisplay(){ 	
+            var con = document.getElementById("myDIV"); 	
+            if(con.style.display=='none'){ 		
+                con.style.display = 'block'; 	
+            }else{ 		
+                con.style.display = 'none'; 	
+            } 
+        } 
+    </script> 
+</head> 
+<body> 
+	<a href="javascript:doDisplay();"> > 자세히보기</a><br/><br/> 
+	<div id="myDIV"> 	
+		<h1>내용을 접거나 펴는 방법</h1> 	
+		<p>display block 속성값은 내부 요소를 나타나게 하며 none 는 사라지게 합니다.</p> 
+	</div> 
+</body>
+
+
+<form>
+    <label for="fruit">
+      세탁물 배송
+    </label>
+    <select id="fruit" name="fruit">
+      <option value="">-- 선택하세요 --</option>
+      <optgroup label="세탁물 배송상태">
+        <option value="strawberry">수거 중</option>
+        <option value="banana">수거 완료</option>
+        <option value="banana">배송 완료</option>
+      </optgroup>
+    </select>
+  </form>
+</html>
+

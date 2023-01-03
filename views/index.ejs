@@ -21,6 +21,10 @@
       href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link href="/public/index.css" rel="stylesheet" />
     <title>세탁센터 | 사장님</title>
   </head>
@@ -35,31 +39,41 @@
     </div>
 
     <span id="ownerInfo">
-    <div class="container" style="margin-top: 50px">
+      <div class="container" style="margin-top: 50px">
         <h2 class="col" style="text-align: center; margin-bottom: 20px">
-        안녕하세요 <%= shopName %>님
+          안녕하세요 <%= shopName %>님
         </h2>
       </div>
 
-    <div class="container" style="margin-top: 50px">
-      <h4 class="col" style="text-align: center; margin-bottom: 20px">
-        현재 보유 포인트 
-      </h4>
-      <h4 class="col" style="text-align: center; margin-bottom: 50px">
-        <%= ownerPoint %>점
-      </h4>
-    </div>
+      <div class="container" style="margin-top: 50px">
+        <h4 class="col" style="text-align: center; margin-bottom: 20px">
+          현재 보유 포인트
+        </h4>
+        <h4 class="col" style="text-align: center; margin-bottom: 50px">
+          <%= ownerPoint %>점
+        </h4>
+      </div>
     </span>
 
-    <div style="text-align:center; margin-bottom: 30px">
-      <button onclick="open_laundry_list()" type="button" class="btn btn-dark btn-lg" style="margin-right: 15px">세탁물 조회</button>
-      <button onclick="open_myWork_list()" type="button" class="btn btn-warning btn-lg">작업물 조회</button>
+    <div style="text-align: center; margin-bottom: 30px">
+      <button
+        onclick="open_laundry_list()"
+        type="button"
+        class="btn btn-dark btn-lg"
+        style="margin-right: 15px"
+      >
+        세탁물 조회
+      </button>
+      <button
+        onclick="open_myWork_list()"
+        type="button"
+        class="btn btn-warning btn-lg"
+      >
+        작업물 조회
+      </button>
     </div>
-
-    <div class= "laundry_list" id="laundry_list">
-    </div>
-
-
+    <div class="laundry_list" id="laundry_list"></div>
+    <div class="laundry_list" id="myWork_list"></div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -82,75 +96,190 @@
     <script src="/api.js"></script>
 
     <script>
+      function open_laundry_list() {
+        $('#laundry_list').show();
+      }
 
-        function open_laundry_list() {
-            $('#laundry_list').show()
-        }
+      function close_laundry_list() {
+        $('#laundry_list').hide();
+      }
 
-        function close_laundry_list() {
-            $('#laundry_list').hide()
-        }
+      function open_myWork_list() {
+        $('#myWork_list').show();
+      }
 
-        function open_myWork_list() {
-            $('#myWork_list').show()
-        }
+      function close_myWork_list() {
+        $('#myWork_list').hide();
+      }
 
-        function close_myWork_list() {
-            $('#myWork_list').hide()
-        }
-        
+      // 세탁물 조회
+      $(document).ready(function () {
+        laundry_list();
+      });
 
-        // 세탁물 불러오기
-        $(document).ready(function () {
-            laundry_list();
+      function laundry_list() {
+        $.ajax({
+          type: 'GET',
+          url: '/api/laundries/owner/laundry_list',
+          data: {},
+          success: function (response) {
+            let rows = response['laundries'];
+            for (let i = 0; i < rows.length; i++) {
+              let laundryId = rows[i]['laundryId'];
+              let laundryName = rows[i]['laundryName'];
+              let request = rows[i]['request'];
+              let img = rows[i]['img'];
+              let status = rows[i]['status'];
+              let createdAt = rows[i]['createdAt'];
+
+              let temp_html = `<div class="container">
+                                          <div class="row">
+                                            <div class="col-12">
+                                              <table class="table table-bordered">
+                                                <thead>
+                                                  <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">세탁물</th>
+                                                    <th scope="col">요청사항</th>
+                                                    <th scope="col">사진</th>
+                                                    <th scope="col">상태</th>
+                                                    <th scope="col">생성일</th>
+                                                    <th scope="col">담기</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr>
+                                                    <th scope="row">${laundryId}</th>
+                                                    <td>${laundryName}</td>
+                                                    <td>${request}</td>
+                                                    <td>${img}</td>
+                                                    <td>${status}</td>
+                                                    <td>${createdAt}</td>
+                                                    <td>
+                                                      <button onclick="addToMyWork(${laundryId})" type="button" class="btn btn-primary"><i class="fa fa-folder"></i></button>
+                                                    </td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                            </div>
+                                          </div>
+                                        </div>`;
+              $('#laundry_list').append(temp_html);
+            }
+          },
         });
+      }
 
-        function laundry_list() {
-            $.ajax({
-                type: "GET",
-                url: "/api/laundries/owner/laundry_list",
-                data: {},
-                success: function (response) {
-                    let rows = response['laundries']
-                    for (let i = 0; i < rows.length; i++) {
-                        let laundryId = rows[i]['laundryId']
-                        let laundryName = rows[i]['laundryName']
-                        let request = rows[i]['request']
-                        let img = rows[i]['img']
-                        let status = rows[i]['status']
-                        let createdAt = rows[i]['createdAt']
+      //세탁물 담기
+      function addToMyWork(laundryId) {
+        $.ajax({
+          type: 'POST',
+          url: `/api/laundries/owner/laundry_list/${laundryId}/add`,
+          data: {},
+          success: function (response) {
+            alert(response['msg']);
+            window.location.reload();
+          }
+        });
+      }
 
-                        let temp_html = `<table class="laundry">
-                                        <thead class="table-dark">
-                                        <tr>
+      // 작업물 조회
+      $(document).ready(function () {
+        myWork_list();
+      });
+
+      function myWork_list() {
+        $.ajax({
+          type: 'GET',
+          url: '/api/laundries/owner/ownerWorkList',
+          data: {},
+          success: function (response) {
+            let rows = response['getMyWork'];
+            for (let i = 0; i < rows.length; i++) {
+              let laundryId = rows[i]['laundryId'];
+              let laundryName = rows[i]['laundryName'];
+              let request = rows[i]['request'];
+              let img = rows[i]['img'];
+              let status = rows[i]['status'];
+              let createdAt = rows[i]['createdAt'];
+
+              let temp_html = `<div class="container">
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <table class="table table-bordered">
+                                        <thead>
+                                          <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">세탁물</th>
                                             <th scope="col">요청사항</th>
                                             <th scope="col">사진</th>
                                             <th scope="col">상태</th>
                                             <th scope="col">생성일</th>
-                                        </tr>
+                                            <th scope="col">세탁물 배송상황</th>
+                                            <th scope="col">작업취소</th>
+                                          </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
+                                          <tr>
                                             <th scope="row">${laundryId}</th>
-                                            <td >${laundryName}</td>
+                                            <td>${laundryName}</td>
                                             <td>${request}</td>
                                             <td>${img}</td>
                                             <td>${status}</td>
                                             <td>${createdAt}</td>
-                                        </tr>
+                                            <td>
+                                              <form>
+                                                <select onchange="updateStatus(${laundryId})" id="select_status">
+                                                  <option>-- 업데이트 --</option>
+                                                  <optgroup label="세탁물 배송상태">
+                                                    <option>수거 완료</option>
+                                                    <option>배송 중</option>
+                                                    <option>배송 완료</option>                                
+                                                  </optgroup>
+                                                </select>
+                                              </form>
+                                            </td>
+                                            <td>
+                                            <button type="button" onclick="deleteWork(${laundryId})" class="btn btn-danger"><i class="fa fa-remove"></i></button>
+                                            </td>
+                                          </tr>
                                         </tbody>
-                                    </table>`
-                        $('#laundry_list').append(temp_html)
-                    }
-                }
-            });
-        }
+                                      </table>
+                                    </div>
+                                  </div>
+                                </div>`;
+              $('#myWork_list').append(temp_html);
+            }
+          },
+        });
+      }
 
-        
+      // 상태변경하기
+      function updateStatus(laundryId) {
+        const status = $('#select_status').val();
+        $.ajax({
+          type: 'PUT',
+          url: `/api/laundries/owner/ownerWorkList/${laundryId}/edit`,
+          data: { status },
+          success: function (response) {
+            alert(response['msg']),
+            window.location.reload();
+          },
+        });
+      }
 
-
+      // 작업취소하기
+      function deleteWork(laundryId) {
+        $.ajax({
+          type: 'DELETE',
+          url: `/api/laundries/owner/ownerWorkList/${laundryId}/delete`,
+          data: {},
+          success: function (response) {
+            alert(response['msg']),
+            window.location.reload();
+          },
+        });
+      }
     </script>
   </body>
 </html>

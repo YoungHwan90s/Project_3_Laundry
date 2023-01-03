@@ -7,34 +7,35 @@ const { Model } = require('sequelize');
  * @return {Model} - Sequelize Model
  * **/
 module.exports = (sequelize, DataTypes) => {
-  class Owner extends Model {
+  class OwnerWorkList extends Model {
 
     static associate(models) {
       // define association here
     }
   }
 
-  Owner.init(
+  OwnerWorkList.init(
     {
       workId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
         autoIncrement: true,
         primaryKey: true
       },
       ownerId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+        type: DataTypes.INTEGER
       },
       laundryId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+        type: DataTypes.INTEGER
+      },
+      createdAt: {
+        type: DataTypes.DATE,
       }
     },
     {
       sequelize,
-      modelName: 'Owner',
+      timestamps: false,
+      modelName: 'OwnerWorkList',
     }
   );
-  return Owner;
+  return OwnerWorkList;
 };

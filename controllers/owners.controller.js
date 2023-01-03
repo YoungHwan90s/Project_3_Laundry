@@ -29,15 +29,14 @@ class OwnersController {
   getOwnerPoints = async (req, res, next) => {
     try {
       // const { ownerId } = res.locals.owner;
+      const ownerId  = 1;
 
-      // if (!ownerId) throw new Error('포인트 조회에 실패하였습니다');
+      if (!ownerId) throw new Error('포인트 조회에 실패하였습니다');
 
-      // const owner = await this.ownerService.findOwnerById(ownerId);
-      // const shopName = owner.shopName
-      // const ownerPoint = owner.ownerPoint
-      const shopName = "영환 세탁소"
-      const ownerPoint = "1,000,000"
-  
+      const owner = await this.ownerService.findOwnerById(ownerId);
+      const shopName = owner.shopName
+      const ownerPoint = owner.ownerPoint
+      
       res.render('index', { shopName, ownerPoint })
 
     } catch (error) {
@@ -49,29 +48,31 @@ class OwnersController {
   getLaundries = async (req, res, next) => {
     const laundries = await this.ownerService.findAllLaundries();
 
-    res.status(200).json({ 'laundries': laundries });
+    res.status(200).json({ laundries });
   };
 
   // 세탁서비스조회: 수거하기
   addToMyWorks = async (req, res, next) => {
     try {
-    const { ownerId } = res.locals.owner;
+    // const { ownerId } = res.locals.owner;
+    const ownerId  = 1;
     const { laundryId } = req.params;
 
-    const addToMyWork = await this.ownerService.addToMyWorks(ownerId, laundryId);
-    res.status(200).json({ data: addToMyWork })
+    await this.ownerService.addToMyWorks(ownerId, laundryId);
+
+    return res.status(200).send({"msg": "선택하신 세탁물을 작업 목록에 저장하였습니다."})
     } catch (error) {
         res.status(400).json({ errorMessage: error.message })
     }
   };
 
-  // 작업내역조회
+  // 작업물조회
   getMyWorks = async (req, res, next) => {
-    const { ownerId } = res.locals.owner;
-
+    // const { ownerId } = res.locals.owner;
+    const ownerId  = 1;
     const getMyWork = await this.ownerService.findAllMyWorks(ownerId);
-
-    res.status(200).json({ data: getMyWork });
+  
+    res.status(200).json({ getMyWork });
   };
   
   // 작업 상태변경
@@ -79,19 +80,18 @@ class OwnersController {
     const { laundryId } = req.params;
     const { status } = req.body;
 
-    const updateLaundryStatus = await this.ownerService.updateStatus(laundryId, status);
+    await this.ownerService.updateStatus(laundryId, status);
 
-    res.status(200).json ({ data: updateLaundryStatus });
+    res.status(200).send({"msg": "선택하신 세탁물의 상태를 변경하였습니다."})
     
   };
 
   // 작업 취소하기
   deleteWork = async (req, res, next) => {
     const { laundryId } = req.params;
-
     const deleteWork = await this.ownerService.deleteWork(laundryId);
 
-    res.status(200).json({ data: deleteWork });
+    res.status(200).send({"msg": "선택하신 세탁물 작업을 취소하였습니다."})
   };
 }
 

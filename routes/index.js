@@ -7,5 +7,4 @@ const ownersRouter = require('./owners.routes');
 
 router.use('/laundries/', ownersRouter);
 
-
 module.exports = router;
