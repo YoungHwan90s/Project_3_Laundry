@@ -36,11 +36,9 @@ class OwnerRepository {
     return allLaundries;
   };
 
-  // 세탁서비스조회: 수거하기
+  // 세탁서비스조회: 수거하기(작업물로 담기)
   addToMyWorks = async (ownerId, laundryId) => {
     const createdAt = new Date();
-
-
 
     const updateMyWorkData = await OwnerWorkList.create({
       ownerId,
@@ -78,7 +76,7 @@ class OwnerRepository {
     return getLaundryInfo;
   };
 
-  // 작업상태 변경하기 위한 세탁물 찾기
+  // 세탁물 찾기
   findLaundryById = async (laundryId) => {
     const laundry = await Laundry.findByPk(laundryId);
 
@@ -86,18 +84,37 @@ class OwnerRepository {
   };
 
   // 작업상태 변경
-  updateStatus = async (laundryId, status) => {
+  updateStatus = async (ownerId, laundryId, status) => {
     const updateLaundryStatus = await Laundry.update(
       { status },
       { where: { laundryId } }
     );
 
+    const owner = await Owner.findOne({
+      where: { ownerId },
+    });
+
+    // 상태가 `배송 완료`일 때 기존 ownerPoint에서 10,000 더해주고, Laundry 목록에서 해당 laundryId 제거 
+    if (status === '배송 완료') {
+      const ownerPoint = owner.ownerPoint + 10000;
+
+      await Owner.update({ ownerPoint }, { where: { ownerId }
+      });
+
+      await Laundry.destroy ({ where: {laundryId }})
+
+      return
+    }
     return updateLaundryStatus;
   };
 
   // 작업 취소하기
   deleteWork = async (laundryId) => {
-    const updateMyWorkData = await OwnerWorkList.destroy({ where: { laundryId } });
+    const updateMyWorkData = await OwnerWorkList.destroy({
+      where: { laundryId },
+    });
+
+    await Laundry.update({ status: '대기중' }, { where: { laundryId } });
 
     return updateMyWorkData;
   };

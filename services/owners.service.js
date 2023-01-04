@@ -56,15 +56,17 @@ class OwnerService {
 
   // 세탁서비스조회: 수거하기
   addToMyWorks = async (ownerId, laundryId) => {
-    const updateMyWorkData = await this.ownerRepository.addToMyWorks(
-      ownerId,
-      laundryId
-    );
+    const findLaundry = await this.ownerRepository.findLaundryById(laundryId);
 
-    return {
-      ownerId: updateMyWorkData.ownerId,
-      laundryId: updateMyWorkData.laundryId,
-    };
+    if (findLaundry.status !== '대기중') {
+      throw new Error('(욕심이 과하시네요...) 이미 작업중인 세탁물 입니다.')
+    } else {
+      await this.ownerRepository.addToMyWorks(
+        ownerId,
+        laundryId
+      );
+    }
+    return ;
   };
 
   // 작업물조회
@@ -85,23 +87,19 @@ class OwnerService {
   };
 
   // 작업 상태변경
-  updateStatus = async (laundryId, status) => {
+  updateStatus = async (ownerId, laundryId, status) => {
     const findLaundry = await this.ownerRepository.findLaundryById(laundryId);
     if (!findLaundry) throw new Error('작업이 존재하지 않습니다.');
 
-    await this.ownerRepository.updateStatus(laundryId, status);
-
-    const updateLaundryStatus = await this.ownerRepository.findLaundryById(
-      laundryId
-    );
+    await this.ownerRepository.updateStatus(ownerId, laundryId, status);
 
     return {
-      laundryId: updateLaundryStatus.laundryId,
-      laundryName: updateLaundryStatus.laundryName,
-      img: updateLaundryStatus.img,
-      request: updateLaundryStatus.request,
-      status: updateLaundryStatus.status,
-      createdAt: updateLaundryStatus.createdAt,
+      laundryId: findLaundry.laundryId,
+      laundryName: findLaundry.laundryName,
+      img: findLaundry.img,
+      request: findLaundry.request,
+      status: findLaundry.status,
+      createdAt: findLaundry.createdAt,
     };
   };
 
