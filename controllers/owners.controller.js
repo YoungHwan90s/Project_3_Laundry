@@ -29,7 +29,7 @@ class OwnersController {
     try {
       // const { ownerId } = res.locals.owner;
       const ownerId = 1;
-
+      
       if (!ownerId) throw new Error('포인트 조회에 실패하였습니다');
 
       const owner = await this.ownerService.findOwnerById(ownerId);
@@ -44,10 +44,27 @@ class OwnersController {
 
   // 세탁서비스조회
   getLaundries = async (req, res, next) => {
-    const laundries = await this.ownerService.findAllLaundries();
+    const { pageNum } = req.query
+
+    let offset = 0
+
+    if(pageNum > 1){
+      offset = 3 * (pageNum - 1);
+    }
+
+    const laundries = await this.ownerService.findAllLaundries(offset);
 
     res.status(200).json({ laundries });
   };
+
+  // 리뷰 조회
+  getMyReviews = async (req, res, next) => {
+    const { laundryId } = req.params
+
+    const myReviews = await this.ownerService.findMyReviews(laundryId);
+
+    res.status(200).json({ myReviews });
+  }; 
 
   // 세탁서비스조회: 수거하기(작업물로 담기)
   addToMyWorks = async (req, res, next) => {

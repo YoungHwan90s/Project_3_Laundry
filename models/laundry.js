@@ -43,6 +43,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       createdAt: {
         type: DataTypes.DATE,
+      },
+      review: {
+        type: DataTypes.STRING,
       }
     },
     {

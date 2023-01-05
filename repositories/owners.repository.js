@@ -17,6 +17,7 @@ class OwnerRepository {
       ownerPhone,
       ownerAddress,
       ownerPoint,
+      createdAt,
     });
 
     return ownerSignIn;
@@ -30,10 +31,20 @@ class OwnerRepository {
   };
 
   // 세탁서비스조회
-  findAllLaundries = async () => {
-    const allLaundries = await Laundry.findAll();
+  findAllLaundries = async (offset) => {
+    const allLaundries = await Laundry.findAll({
+      offset: offset,
+      limit: 3
+    });
 
     return allLaundries;
+  };
+
+  // 리뷰 조회
+  findMyReviews = async (laundryId) => {
+    const review = await Laundry.findbyPk(laundryId);
+
+    return review;
   };
 
   // 세탁서비스조회: 수거하기(작업물로 담기)
