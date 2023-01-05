@@ -1,5 +1,6 @@
 const OwnerService = require('../services/owners.service');
 
+
 class OwnersController {
   ownerService = new OwnerService();
 
@@ -32,7 +33,7 @@ class OwnersController {
       const shopName = owner.shopName;
       const ownerPoint = owner.ownerPoint;
 
-      res.render('owner', { shopName, ownerPoint });
+
     } catch (error) {
       res.status(400).json({ errorMessage: error.message });
     }

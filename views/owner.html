@@ -274,6 +274,41 @@
     <script src="/api.js"></script>
   
     <script>
+      // getSelf(function (u) {
+      // user = u;
+      // });
+
+      // if (localStorage.getItem("token")) {
+      //   getSelf(function () {
+      //     alert("이미 로그인이 되어있습니다. 상품 페이지로 이동합니다.");
+      //     window.location.replace("/goods.html");
+      //   });
+      // }
+
+      function getSelf(callback) {
+      $.ajax({
+        type: "GET",
+        url: "/api/laundries/owners/me",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        success: function (response) {
+          callback(response.owner);
+        },
+        error: function (xhr, status, error) {
+          if (status == 401) {
+            alert("로그인이 필요합니다.");
+          } else {
+            localStorage.clear();
+            alert("알 수 없는 문제가 발생했습니다. 관리자에게 문의하세요.");
+          }
+          window.location.href = "/";
+        },
+      });
+    }
+
+
+
       function open_laundry_list() {
         $('#viewWorkLists').hide();
         $('#viewReview').hide();
@@ -332,6 +367,11 @@ $(document).ready(() => {
         laundry_list(3)
     })
   })
+
+
+      $(document).ready(function () {
+        laundry_list();
+      });
 
       //세탁물 조회
       function laundry_list(parameter) {

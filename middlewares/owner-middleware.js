@@ -1,5 +1,3 @@
-// middlewares/auth-middleware.js
-
 const jwt = require("jsonwebtoken");
 const { Owner } = require("../models");
 
@@ -22,7 +20,7 @@ module.exports = (req, res, next) => {
     });
   } catch (err) {
     res.status(401).send({
-      errorMessage: "로그인 후 이용 가능한 기능입니다.",
+      errorMessage: "222이건 사장꺼 로그인 후 이용 가능한 기능입니다.",
     });
   }
 };
