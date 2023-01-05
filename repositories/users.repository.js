@@ -51,7 +51,7 @@ class UserRepository {
             laundryName, 
             img, 
             request, 
-            status
+            status,
         });
         
         return createLaundryData;

@@ -18,7 +18,7 @@ module.exports = {
         allowNull: false
       },
       img: {
-        type: Sequelize.BLOB('medium')
+        type: Sequelize.STRING,
       },
       request: {
         type: Sequelize.STRING,

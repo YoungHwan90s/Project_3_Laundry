@@ -8,8 +8,8 @@ const usercontroller = new Usercontroller();
 
 
 // 임시 테스트 회원가입 구현 
-router.get("/users", usercontroller.getUsers);
-router.post("/users", usercontroller.createUser);
+router.get("/customeruser", usercontroller.getUsers);
+router.post("/customeruser", usercontroller.createUser);
 
 
 // 손님 메인 페이지 
@@ -28,9 +28,9 @@ router.get("/user/laundry/list/:laundryId", usercontroller.getLaundryById);
 router.delete("/user/laundry/:userId/list/:laundryId/delete", usercontroller.deleteLaundry);
 
 // 테스트용 
-router.get('/',(req,res) => {
-    res.send("Hello");
-});
+// router.get('/',(req,res) => {
+//     res.send("Hello");
+// });
 
 
 module.exports = router;
