@@ -59,9 +59,10 @@ class OwnersController {
 
   // 리뷰 조회
   getMyReviews = async (req, res, next) => {
-    const { laundryId } = req.params
+    // const { ownerId } = res.locals.owner;
+    const ownerId = 1;
 
-    const myReviews = await this.ownerService.findMyReviews(laundryId);
+    const myReviews = await this.ownerService.findMyReviews(ownerId);
 
     res.status(200).json({ myReviews });
   }; 

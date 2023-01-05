@@ -193,16 +193,7 @@
                 <th scope="col">리뷰</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row">${laundryId}</th>
-                <td>${laundryName}</td>
-                <td>${request}</td>
-                <td>${img}</td>
-                <td>${createdAt}</td>
-                <td>${review}</td>
-              </tr>
-            </tbody>
+
 
           </table>
         </div>
@@ -316,7 +307,7 @@
 
 // 로딩 되었으면 기본 1번 페이지 피드 불러오기
 $(document).ready(function () {
-getFeed(1);
+  laundry_list(1);
 })
 //  페이지 시작 시 작동 --------------------
 $(document).ready(() => {
@@ -480,6 +471,47 @@ $(document).ready(() => {
           },
         });
       }
+
+      // 리뷰 조회
+      $(document).ready(function () {
+        myReview_list();
+      });
+
+      function myReview_list() {
+        $.ajax({
+          type: 'GET',
+          url: '/api/laundries/owner/ownerReview',
+          data: {},
+          success: function (response) {
+            let rows = response['myReviews'];
+
+            for (let i = 0; i < rows.length; i++) {
+              let laundryId = rows[i]['laundryId'];
+              let userId = rows[i]['userId']
+              let laundryName = rows[i]['laundryName'];
+              let request = rows[i]['request'];
+              let img = rows[i]['img'];
+              let createdAt = rows[i]['createdAt'];
+              let review = rows[i]['reveiw'];
+              
+              let temp_html = `<tbody>
+                                <tr>
+                                  <th scope="row">${laundryId}</th>
+                                  <td>${laundryName}</td>
+                                  <td>${request}</td>
+                                  <td>${img}</td>
+                                  <td>${createdAt}</td>
+                                  <td>${review}</td>
+                                </tr>
+                              </tbody>`
+              $('#viewMyReview').append(temp_html);
+            }
+          },
+        });
+      }
+
+
+      
 
       // Modal alert
       function customAlert(text, confirmCallback) {

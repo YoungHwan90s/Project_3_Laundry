@@ -55,22 +55,24 @@ class OwnerService {
   };
 
   // 리뷰 조회
-  findMyReviews = async (laundryId) => {
-    const myReviews = await this.ownerRepository.findMyReviews(laundryId);
+  findMyReviews = async (ownerId) => {
+    const myReviews = await this.ownerRepository.findMyReviews(ownerId);
     
     myReviews.sort((a, b) => {
       return b.createdAt - a.createdAt;
     });
 
+    return myReviews.map((laundry) => {
       return {
-        laundryId: myReviews.laundryId,
-        userId: myReviews.userId,
-        laundryName: myReviews.laundryName,
-        img: myReviews.img,
-        request: myReviews.request,
-        createdAt: myReviews.createdAt,
-        review: myReviews.review,
+        laundryId: laundry.laundryId,
+        userId: laundry.userId,
+        laundryName: laundry.laundryName,
+        img: laundry.img,
+        request: laundry.request,
+        createdAt: laundry.createdAt,
+        reveiw: laundry.review
       };
+    });
   };
 
   // 세탁서비스조회: 수거하기
