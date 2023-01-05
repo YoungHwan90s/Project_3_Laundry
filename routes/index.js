@@ -2,10 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const signsRouter = require('./signs.routes');
-const laundriesRouter = require('./laundries.routes');
-const usersRouter = require('./users.routes');
+const ownersRouter = require('./owners.routes');
+// const usersRouter = require('./users.routes');
 
-router.use('/laundries/', [signsRouter, laundriesRouter, usersRouter]);
-
+router.use('/laundries/', [signsRouter, ownersRouter]);
 
 module.exports = router;
