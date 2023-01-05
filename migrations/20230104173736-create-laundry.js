@@ -30,6 +30,9 @@ module.exports = {
       },
       createdAt: {
         type: Sequelize.DATE
+      },
+      review: {
+        type: Sequelize.STRING
       }
     });
   },

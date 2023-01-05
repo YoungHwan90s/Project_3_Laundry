@@ -1,3 +1,4 @@
+<<<<<<< HEAD:views/public/index.css
 .bg-sparta {
     background-color: #b362c5 !important;
   }
@@ -6,6 +7,21 @@
     color: #ffffff !important;
     background-color: #b362c5 !important;
     border-color: #b362c5 !important;
+=======
+  .laundry {
+   width: 50%; 
+   text-align:left; 
+   margin-left: auto; 
+   margin-right: auto;
+  }
+
+  .laundry_list {
+    display: none;
+  }
+
+  .container {
+    margin-bottom: 10px;
+>>>>>>> 19a70c0294a1172f588feccb2dc6e9807605be40:views/public/owner.css
   }
   
   .btn-outline-sparta {
@@ -28,7 +44,11 @@
     max-width: 600px;
     margin: 10px auto;
   }
+<<<<<<< HEAD:views/public/index.css
   
+=======
+
+>>>>>>> 19a70c0294a1172f588feccb2dc6e9807605be40:views/public/owner.css
   .modal-header {
     border-bottom-color: #ffffff;
   }

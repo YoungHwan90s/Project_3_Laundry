@@ -34,8 +34,8 @@ class OwnerService {
   };
 
   // 세탁서비스조회
-  findAllLaundries = async () => {
-    const allLaundries = await this.ownerRepository.findAllLaundries();
+  findAllLaundries = async (offset) => {
+    const allLaundries = await this.ownerRepository.findAllLaundries(offset);
 
     allLaundries.sort((a, b) => {
       return b.createdAt - a.createdAt;
@@ -52,6 +52,25 @@ class OwnerService {
         createdAt: laundry.createdAt,
       };
     });
+  };
+
+  // 리뷰 조회
+  findMyReviews = async (laundryId) => {
+    const myReviews = await this.ownerRepository.findMyReviews(laundryId);
+    
+    myReviews.sort((a, b) => {
+      return b.createdAt - a.createdAt;
+    });
+
+      return {
+        laundryId: myReviews.laundryId,
+        userId: myReviews.userId,
+        laundryName: myReviews.laundryName,
+        img: myReviews.img,
+        request: myReviews.request,
+        createdAt: myReviews.createdAt,
+        review: myReviews.review,
+      };
   };
 
   // 세탁서비스조회: 수거하기
@@ -94,12 +113,7 @@ class OwnerService {
     await this.ownerRepository.updateStatus(ownerId, laundryId, status);
 
     return {
-      laundryId: findLaundry.laundryId,
-      laundryName: findLaundry.laundryName,
-      img: findLaundry.img,
-      request: findLaundry.request,
       status: findLaundry.status,
-      createdAt: findLaundry.createdAt,
     };
   };
 
