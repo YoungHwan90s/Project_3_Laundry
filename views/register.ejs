@@ -246,11 +246,11 @@
 
         $.ajax({
           type: "POST",
-          url: "/api/users",
+          url: "/api/laundries/users",
           data: {
             ID: ID,
-            password: pwd1,
-            confirmPassword: pwd2, 
+            pwd: pwd1,
+            confirmPwd: pwd2, 
             userName: userName,
             userEmail: userEmail,
             userPhone: userPhone,

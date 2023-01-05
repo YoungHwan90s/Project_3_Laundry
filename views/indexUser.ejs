@@ -94,7 +94,7 @@
               <button
                 type="button"
                 class="btn btn-outline-sparta btn-block"
-                onclick="window.location.href='/register.ejs'"
+                onclick="window.location.href='/registerUser'"
               >
                 회원가입
               </button>
@@ -157,29 +157,29 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="/api.js"></script>
+    <!-- <script src="/public/api.js"></script> -->
 
     <script>
-      if (localStorage.getItem("token")) {
-        getSelf(function () {
-          alert("이미 로그인이 되어있습니다. 상품 페이지로 이동합니다.");
-          window.location.replace("/goods.html");
-        });
-      }
+      // if (localStorage.getItem("token")) {
+      //   getSelf(function () {
+      //     alert("이미 로그인이 되어있습니다. 상품 페이지로 이동합니다.");
+      //     window.location.replace("/goods.html");
+      //   });
+      // }
 
       function sign_in() {
         let userEmail = $("#inputUserEmail").val();
         let pwd = $("#inputPwd").val();
         $.ajax({
           type: "POST",
-          url: "/api/auth",
+          url: "/api/laundries/auth",
           data: {
             userEmail: userEmail,
             pwd: pwd,
           },
           success: function (response) {
             localStorage.setItem("token", response.token);
-            window.location.replace("/users.ejs");
+            window.location.replace("/userWork");
           },
           error: function (error) {
             customAlert(error.responseJSON.errorMessage);

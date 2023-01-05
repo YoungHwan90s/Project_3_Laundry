@@ -92,7 +92,7 @@ router.post("/owners", async (req, res) => {
 
 
 // 로그인(세탁 업자용)
-router.post("/owner", async (req, res) => {
+router.post("/authowner", async (req, res) => {
   console.log('안녕하세요');
   const { ownerEmail, pwd } = req.body;
 

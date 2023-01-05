@@ -1,4 +1,5 @@
 const { User, Owner, Laundry, OwnerWorkList } = require('../models');
+const { Op } = require("sequelize");
 
 class OwnerRepository {
   // 사장 회원가입
@@ -41,10 +42,26 @@ class OwnerRepository {
   };
 
   // 리뷰 조회
-  findMyReviews = async (laundryId) => {
-    const review = await Laundry.findbyPk(laundryId);
+  findMyReviews = async (ownerId) => {
+    const getLaundryIds = await OwnerWorkList.findAll({
+      where: { ownerId },
+    });
 
-    return review;
+    const getLaundryId = getLaundryIds.map((laundry) => {
+      return [laundry.laundryId];
+    });
+
+    const getLaundryReview = await Laundry.findAll({
+      order: [['createdAt', 'desc']],
+      where: {
+        [Op.and]: [
+          { laundryId: getLaundryId },
+          { status: "배송 완료" }
+        ]
+      }
+    });
+
+    return getLaundryReview;
   };
 
   // 세탁서비스조회: 수거하기(작업물로 담기)
@@ -105,14 +122,14 @@ class OwnerRepository {
       where: { ownerId },
     });
 
-    // 상태가 `배송 완료`일 때 기존 ownerPoint에서 10,000 더해주고, Laundry 목록에서 해당 laundryId 제거 
+    // 상태가 `배송 완료`일 때 기존 ownerPoint에서 10,000 더해주고, OwnerWorkList 목록에서 제거
     if (status === '배송 완료') {
       const ownerPoint = owner.ownerPoint + 10000;
 
       await Owner.update({ ownerPoint }, { where: { ownerId }
       });
 
-      await Laundry.destroy ({ where: {laundryId }})
+      await OwnerWorkList.destroy ({ where: {laundryId }})
 
       return
     }
