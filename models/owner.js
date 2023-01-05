@@ -22,19 +22,19 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true
       },
       shopName: {
-        type: DataTypes.INTEGER
+        type: DataTypes.STRING
       },
       pwd: {
-        type: DataTypes.INTEGER
+        type: DataTypes.STRING
       },
       ownerEmail: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
       },
       ownerPhone: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
       },
       ownerAddress: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
       },
       ownerPoint: {
         type: DataTypes.INTEGER,
