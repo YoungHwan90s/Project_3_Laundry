@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <!-- Font Awesome CSS -->
+    <link
+      href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+
+    <link href="/public/index.css" rel="stylesheet" />
+    <title>세탁파크로! | 회원가입</title>
+
+    <style>
+      .jumbotron {
+        border-radius: 0;
+      }
+
+      @media screen and (max-width: 576px) {
+        .form-group {
+          margin-bottom: 0.25rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div
+      class="jumbotron bg-sparta text-white text-center"
+      onclick="window.location.href='/'"
+    >
+      <h1 class="font-weight-bold">회원가입(일반 고객용)</h1>
+    </div>
+    <div class="wrap">
+      <div class="card mx-auto" style="max-width: 480px">
+        <div class="card-body">
+          <div>
+            <div class="form-group row">
+              <label for="inputID" class="col-sm-4 col-form-label"
+                >아이디</label
+              >
+              <div class="col-sm-8">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputID"
+                  placeholder="아이디"
+                />
+                <!--                                <small id="nicknameHelp" class="form-text text-muted">닉네임을 입력해주세요.</small>-->
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="inputPwd1" class="col-sm-4 col-form-label"
+                >비밀번호</label
+              >
+              <div class="col-sm-8">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="inputPwd1"
+                  placeholder="영문과 숫자로 6자리 이상"
+                />
+                <!--                                <small id="passwordHelp1" class="form-text text-muted">영문과 숫자로 6자리 이상 입력해주세요.</small>-->
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputPwd2" class="col-sm-4 col-form-label"
+                >비밀번호 확인</label
+              >
+              <div class="col-sm-8">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="inputPwd2"
+                  placeholder="비밀번호 재입력"
+                />
+                <!--                                <small id="passwordHelp2" class="form-text text-muted">비밀번호를 다시 입력해주세요.</small>-->
+               </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputUserName" class="col-sm-4 col-form-label"
+                  >이름</label
+                >
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inputUserName"
+                    placeholder="이름"
+                  />
+                </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="inputUserEmail" class="col-sm-4 col-form-label"
+                >이메일</label
+              >
+              <div class="col-sm-8">
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inputUserEmail"
+                    placeholder="email@email.com"
+                  />
+                  <!--                                    <div class="input-group-append">-->
+                  <!--                                        <button class="btn btn-outline-sparta" type="button">중복확인</button>-->
+                  <!--                                    </div>-->
+                </div>
+
+                <!--                                <small id="emailHelp" class="form-text text-muted">입력 후 중복확인 버튼을 클릭해주세요.</small>-->
+              </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputUserPhone" class="col-sm-4 col-form-label"
+                  >전화</label
+                >
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inputUserPhone"
+                    placeholder="전화번호"
+                  />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputUserAddress" class="col-sm-4 col-form-label"
+                  >집주소</label
+                >
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inputUserAddress"
+                    placeholder="집주소"
+                  />
+                </div>
+            </div>
+
+          <div class="row d-flex justify-content-around mt-3">
+            <div class="col-6 pr-2">
+              <button
+                type="button"
+                class="btn btn-sparta btn-block"
+                onclick="sign_up()"
+              >
+                회원가입
+              </button>
+            </div>
+            <div class="col-6 pl-2">
+              <button
+                type="button"
+                class="btn btn-outline-sparta btn-block"
+                onclick="window.location.href='/'"
+              >
+                취소
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal text-left"
+      id="alertModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="alertModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="alertModalLabel">알림</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="alertText">
+            정말로 로그아웃 하시겠습니까?
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-sparta btn-confirm"
+              data-dismiss="modal"
+            >
+              확인
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+      integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      function sign_up() {
+        const ID = $("#inputID").val();
+        const pwd1 = $("#inputPwd1").val();
+        const pwd2 = $("#inputPwd2").val();
+        const userName = $("#inputUserName").val();
+        const userEmail = $("#inputUserEmail").val();
+        const userPhone = $("#inputUserPhone").val();
+        const userAddress = $("#inputUserAddress").val();
+
+        $.ajax({
+          type: "POST",
+          url: "/api/users",
+          data: {
+            ID: ID,
+            password: pwd1,
+            confirmPassword: pwd2, 
+            userName: userName,
+            userEmail: userEmail,
+            userPhone: userPhone,
+            userAddress: userAddress,
+          },
+          success: function (response) {
+            customAlert("회원가입을 축하드립니다!", function () {
+              window.location.replace("/");
+            });
+          },
+          error: function (error) {
+            customAlert(error.responseJSON.errorMessage);
+          },
+        });
+      }
+      function customAlert(text, confirmCallback) {
+        $("#alertText").text(text);
+        $("#alertModal").modal("show");
+        if (confirmCallback) {
+          $("#alertModal .btn-confirm").click(confirmCallback);
+        }
+      }
+    </script>
+  </body>
+</html>

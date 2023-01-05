@@ -41,6 +41,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
       },
       userPoint: {
+        type: DataTypes.INTEGER,
+      },
+      createdAt: {
         type: DataTypes.DATE,
       }
     },

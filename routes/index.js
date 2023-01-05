@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-// const signsRouter = require('./signs.routes');
+const signsRouter = require('./signs.routes');
 const ownersRouter = require('./owners.routes');
 // const usersRouter = require('./users.routes');
 
-router.use('/laundries/', ownersRouter);
+router.use('/laundries/', [signsRouter, ownersRouter]);
 
 module.exports = router;
