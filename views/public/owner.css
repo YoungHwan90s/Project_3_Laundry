@@ -51,7 +51,7 @@
   }
 
   .alert-sparta {
-    color: #e8344e;
+    color: #b362c5;
     background-color: #ffe7ff;
     border-color: #ffcde7;
   }
@@ -61,18 +61,18 @@
   }
 
   .bg-sparta {
-    background-color: #e8344e !important;
+    background-color: #b362c5 !important;
   }
   
   .btn-sparta {
     color: #ffffff !important;
-    background-color: #e8344e !important;
-    border-color: #e8344e !important;
+    background-color: #b362c5 !important;
+    border-color: #b362c5 !important;
   }
 
   .btn-outline-sparta {
-    color: #e8344e !important;
+    color: #b362c5 !important;
     background-color: #ffffff !important;
-    border-color: #e8344e !important;
+    border-color: #b362c5 !important;
   }
   
