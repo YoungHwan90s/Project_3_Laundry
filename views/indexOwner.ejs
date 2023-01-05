@@ -94,7 +94,7 @@
               <button
                 type="button"
                 class="btn btn-outline-sparta btn-block"
-                onclick="window.location.href='/registerOwner.ejs'"
+                onclick="window.location.href='/registerOwner'"
               >
                 회원가입
               </button>
@@ -158,29 +158,29 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="/api.js"></script>
+    <!-- <script src="/public/api.js"></script> -->
 
     <script>
-      if (localStorage.getItem("token")) {
-        getSelf(function () {
-          alert("이미 로그인이 되어있습니다. 상품 페이지로 이동합니다.");
-          window.location.replace("/goods.html");
-        });
-      }
+      // if (localStorage.getItem("token")) {
+      //   getSelf(function () {
+      //     alert("이미 로그인이 되어있습니다. 상품 페이지로 이동합니다.");
+      //     window.location.replace("/goods.html");
+      //   });
+      // }
 
       function sign_in() {
-        let OwnerEmail = $("#inputOwnerEmail").val();
+        let ownerEmail = $("#inputOwnerEmail").val();
         let pwd = $("#inputPwd").val();
         $.ajax({
           type: "POST",
-          url: "/api/owner",
+          url: "/api/laundries/authowner",
           data: {
-            OwnerEmail: OwnerEmail,
+            ownerEmail: ownerEmail,
             pwd: pwd,
           },
           success: function (response) {
             localStorage.setItem("token", response.token);
-            window.location.replace("/owners.ejs");
+            window.location.href="/api/laundries/owner";
           },
           error: function (error) {
             customAlert(error.responseJSON.errorMessage);
