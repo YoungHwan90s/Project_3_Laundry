@@ -3,8 +3,8 @@ const router = express.Router();
 
 // const signsRouter = require('./signs.routes');
 const ownersRouter = require('./owners.routes');
-// const usersRouter = require('./users.routes');
+const usersRouter = require('./users.routes');
 
-router.use('/laundries/', ownersRouter);
+router.use('/laundries/', [ownersRouter,usersRouter]);
 
 module.exports = router;

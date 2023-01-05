@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       img: {
-        type: DataTypes.BLOB('medium')
+        type: DataTypes.STRING,
       },
       request: {
         type: DataTypes.STRING,
