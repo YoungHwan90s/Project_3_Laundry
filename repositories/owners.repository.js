@@ -2,27 +2,27 @@ const { User, Owner, Laundry, OwnerWorkList } = require('../models');
 const { Op } = require("sequelize");
 
 class OwnerRepository {
-  // 사장 회원가입
-  ownerSignUp = async (
-    shopName,
-    pwd,
-    ownerEmail,
-    ownerPhone,
-    ownerAddress,
-    ownerPoint
-  ) => {
-    const ownerSignIn = await Owner.create({
-      shopName,
-      pwd,
-      ownerEmail,
-      ownerPhone,
-      ownerAddress,
-      ownerPoint,
-      createdAt,
-    });
+  // // 사장 회원가입
+  // ownerSignUp = async (
+  //   shopName,
+  //   pwd,
+  //   ownerEmail,
+  //   ownerPhone,
+  //   ownerAddress,
+  //   ownerPoint
+  // ) => {
+  //   const ownerSignIn = await Owner.create({
+  //     shopName,
+  //     pwd,
+  //     ownerEmail,
+  //     ownerPhone,
+  //     ownerAddress,
+  //     ownerPoint,
+  //     createdAt,
+  //   });
 
-    return ownerSignIn;
-  };
+  //   return ownerSignIn;
+  // };
 
   // 사장 메인페이지
   findOwnerById = async (ownerId) => {

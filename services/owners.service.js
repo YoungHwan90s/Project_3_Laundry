@@ -2,26 +2,26 @@ const OwnerRepository = require('../repositories/owners.repository');
 
 class OwnerService {
   ownerRepository = new OwnerRepository();
-  // 사장 회원가입
-  ownerSignUp = async () => {
-    const ownerSignUp = await ownerRepository.ownerSignUp(
-      shopName,
-      pwd,
-      ownerEmail,
-      ownerPhone,
-      ownerAddress,
-      ownerPoint
-    );
+  // // 사장 회원가입
+  // ownerSignUp = async () => {
+  //   const ownerSignUp = await ownerRepository.ownerSignUp(
+  //     shopName,
+  //     pwd,
+  //     ownerEmail,
+  //     ownerPhone,
+  //     ownerAddress,
+  //     ownerPoint
+  //   );
 
-    return {
-      shopName: ownerSignUp.shopName,
-      pwd: ownerSignUp.pwd,
-      ownerEmail: ownerSignUp.ownerEmail,
-      ownerPhone: ownerSignUp.ownerPhone,
-      ownerAddress: ownerSignUp.ownerAddress,
-      ownerPoint: ownerSignUp.ownerPoint,
-    };
-  };
+  //   return {
+  //     shopName: ownerSignUp.shopName,
+  //     pwd: ownerSignUp.pwd,
+  //     ownerEmail: ownerSignUp.ownerEmail,
+  //     ownerPhone: ownerSignUp.ownerPhone,
+  //     ownerAddress: ownerSignUp.ownerAddress,
+  //     ownerPoint: ownerSignUp.ownerPoint,
+  //   };
+  // };
 
   // 사장 메인페이지
   findOwnerById = async (ownerId) => {

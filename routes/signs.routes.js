@@ -65,7 +65,8 @@ const ownerMiddleware = require('../middlewares/owner-middleware.js');
 
 // 회원가입(세탁 업자용)
 router.post("/owners", async (req, res) => {
-  const { shopName, pwd, confirmPwd, ownerEmail, ownerPhone, ownerAddress, ownerPoint } = req.body;
+  const ownerPoint = 0
+  const { shopName, pwd, confirmPwd, ownerEmail, ownerPhone, ownerAddress } = req.body;
   const createdAt = new Date();
   console.log(shopName);
 
@@ -119,7 +120,8 @@ router.post("/authOwner", async (req, res) => {
 
 // 업자용 로그인미들웨어
 router.get('/owners/me', ownerMiddleware, async(req, res) => {
-  res.json({owner: res.locals.owner}); 
+  
+  res.send({owner: res.locals.owner}); 
 });
 
 

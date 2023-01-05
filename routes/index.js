@@ -6,6 +6,7 @@ const ownersRouter = require('./owners.routes');
 // const usersRouter = require('./users.routes');
 
 // 미들웨어
-router.use('/laundries/', [signsRouter, ownersRouter]);
+router.use('/log', signsRouter);
+router.use('/laundries', ownersRouter);
 
 module.exports = router;

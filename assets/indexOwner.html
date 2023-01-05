@@ -21,7 +21,7 @@
       href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
-    <link href="/public/index.css" rel="stylesheet" />
+    <link href="index.css" rel="stylesheet" />
     <title>세탁파크로! | 로그인</title>
 
     <style>
@@ -45,7 +45,7 @@
       class="jumbotron bg-sparta text-white text-center"
       onclick="window.location.href='/'"
     >
-      <h1 class="font-weight-bold">로그인(일반 고객용)</h1>
+      <h1 class="font-weight-bold">로그인(세탁 업자용)</h1>
     </div>
     <div class="wrap">
       <div class="card mx-auto" style="max-width: 480px">
@@ -59,10 +59,10 @@
             <input
               type="text"
               class="form-control"
-              placeholder="이메일(일반고객님)"
-              aria-label="userEmail"
+              placeholder="이메일(세탁업자님)"
+              aria-label="OwnerEmail"
               aria-describedby="basic-addon1"
-              id="inputUserEmail"
+              id="inputOwnerEmail"
             />
           </div>
           <div class="input-group mb-3">
@@ -94,7 +94,7 @@
               <button
                 type="button"
                 class="btn btn-outline-sparta btn-block"
-                onclick="window.location.href='/registerUser'"
+                onclick="window.location.href='registerOwner.html'"
               >
                 회원가입
               </button>
@@ -103,6 +103,7 @@
         </div>
       </div>
     </div>
+
     <div
       class="modal text-left"
       id="alertModal"
@@ -157,40 +158,36 @@
       crossorigin="anonymous"
     ></script>
 
-    <!-- <script src="/public/api.js"></script> -->
+    <script src="api.js"></script>
 
     <script>
-      // if (localStorage.getItem("token")) {
-      //   getSelf(function () {
-      //     alert("이미 로그인이 되어있습니다. 상품 페이지로 이동합니다.");
-      //     window.location.replace("/goods.html");
-      //   });
-      // }
+    //   if (localStorage.getItem("token")) {
+    //   getSelf(function () {
+    //     alert("이미 로그인이 되어있습니다. 상품 페이cccccc지로 이동합니다.");
+    //     window.location.replace("/owner.html");
+    // });
+    //   }
 
       function sign_in() {
-        let userEmail = $("#inputUserEmail").val();
+        let ownerEmail = $("#inputOwnerEmail").val();
         let pwd = $("#inputPwd").val();
         $.ajax({
           type: "POST",
-          url: "/api/laundries/auth",
+          url: "/api/log/authOwner",
           data: {
-            userEmail: userEmail,
+            ownerEmail: ownerEmail,
             pwd: pwd,
           },
           success: function (response) {
             localStorage.setItem("token", response.token);
-            window.location.href="/api/laundries/user";
-          }, 
+            window.location.replace("/owner.html");
+          },
           error: function (error) {
             customAlert(error.responseJSON.errorMessage);
           },
         });
       }
 
-      function customAlert(text) {
-        $("#alertText").text(text);
-        $("#alertModal").modal("show");
-      }
     </script>
   </body>
 </html>

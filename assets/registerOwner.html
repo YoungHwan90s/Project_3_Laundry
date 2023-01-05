@@ -22,7 +22,7 @@
       rel="stylesheet"
     />
 
-    <link href="/public/index.css" rel="stylesheet" />
+    <link href="index.css" rel="stylesheet" />
     <title>세탁파크로! | 회원가입</title>
 
     <style>
@@ -43,29 +43,29 @@
       class="jumbotron bg-sparta text-white text-center"
       onclick="window.location.href='/'"
     >
-      <h1 class="font-weight-bold">회원가입(일반 고객용)</h1>
+      <h1 class="font-weight-bold">회원가입(세탁 업자용)</h1>
     </div>
     <div class="wrap">
       <div class="card mx-auto" style="max-width: 480px">
         <div class="card-body">
           <div>
             <div class="form-group row">
-              <label for="inputID" class="col-sm-4 col-form-label"
-                >아이디</label
+              <label for="inputShopName" class="col-sm-4 col-form-label"
+                >업체명</label
               >
               <div class="col-sm-8">
                 <input
                   type="text"
                   class="form-control"
-                  id="inputID"
-                  placeholder="아이디"
+                  id="inputShopName"
+                  placeholder="업체명"
                 />
-                <!--                                <small id="nicknameHelp" class="form-text text-muted">닉네임을 입력해주세요.</small>-->
+                <!--                                <small id="shopnameHelp" class="form-text text-muted">닉네임을 입력해주세요.</small>-->
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="inputPwd1" class="col-sm-4 col-form-label"
+              <label for="inputwd1" class="col-sm-4 col-form-label"
                 >비밀번호</label
               >
               <div class="col-sm-8">
@@ -90,26 +90,11 @@
                   placeholder="비밀번호 재입력"
                 />
                 <!--                                <small id="passwordHelp2" class="form-text text-muted">비밀번호를 다시 입력해주세요.</small>-->
-               </div>
               </div>
             </div>
 
             <div class="form-group row">
-                <label for="inputUserName" class="col-sm-4 col-form-label"
-                  >이름</label
-                >
-                <div class="col-sm-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="inputUserName"
-                    placeholder="이름"
-                  />
-                </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="inputUserEmail" class="col-sm-4 col-form-label"
+              <label for="inputOwnerEmail" class="col-sm-4 col-form-label"
                 >이메일</label
               >
               <div class="col-sm-8">
@@ -117,7 +102,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    id="inputUserEmail"
+                    id="inputOwnerEmail"
                     placeholder="email@email.com"
                   />
                   <!--                                    <div class="input-group-append">-->
@@ -130,33 +115,34 @@
             </div>
 
             <div class="form-group row">
-                <label for="inputUserPhone" class="col-sm-4 col-form-label"
+                <label for="inputOwnerPhone" class="col-sm-4 col-form-label"
                   >전화</label
                 >
                 <div class="col-sm-8">
                   <input
                     type="text"
                     class="form-control"
-                    id="inputUserPhone"
+                    id="inputOwnerPhone"
                     placeholder="전화번호"
                   />
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="inputUserAddress" class="col-sm-4 col-form-label"
-                  >집주소</label
+                <label for="inputOwnerAddress" class="col-sm-4 col-form-label"
+                  >업체주소</label
                 >
                 <div class="col-sm-8">
                   <input
                     type="text"
                     class="form-control"
-                    id="inputUserAddress"
-                    placeholder="집주소"
+                    id="inputOwnerAddress"
+                    placeholder="업체주소"
                   />
                 </div>
             </div>
 
+          </div>
           <div class="row d-flex justify-content-around mt-3">
             <div class="col-6 pr-2">
               <button
@@ -234,31 +220,32 @@
       integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
       crossorigin="anonymous"
     ></script>
+
+    <script src="/api.js"></script>
+
     <script>
       function sign_up() {
-        const ID = $("#inputID").val();
+        const shopName = $("#inputShopName").val();
         const pwd1 = $("#inputPwd1").val();
         const pwd2 = $("#inputPwd2").val();
-        const userName = $("#inputUserName").val();
-        const userEmail = $("#inputUserEmail").val();
-        const userPhone = $("#inputUserPhone").val();
-        const userAddress = $("#inputUserAddress").val();
+        const ownerEmail = $("#inputOwnerEmail").val();
+        const ownerPhone = $("#inputOwnerPhone").val();
+        const ownerAddress = $("#inputOwnerAddress").val();
 
         $.ajax({
           type: "POST",
-          url: "/api/laundries/users",
+          url: "/api/laundries/owners",
           data: {
-            ID: ID,
+            shopName: shopName,
             pwd: pwd1,
-            confirmPwd: pwd2, 
-            userName: userName,
-            userEmail: userEmail,
-            userPhone: userPhone,
-            userAddress: userAddress,
+            confirmPwd: pwd2,
+            ownerEmail: ownerEmail,
+            ownerPhone: ownerPhone,
+            ownerAddress: ownerAddress           
           },
           success: function (response) {
             customAlert("회원가입을 축하드립니다!", function () {
-              window.location.replace("/");
+              window.location.replace("/ownerLogin");
             });
           },
           error: function (error) {
@@ -266,13 +253,7 @@
           },
         });
       }
-      function customAlert(text, confirmCallback) {
-        $("#alertText").text(text);
-        $("#alertModal").modal("show");
-        if (confirmCallback) {
-          $("#alertModal .btn-confirm").click(confirmCallback);
-        }
-      }
+
     </script>
   </body>
 </html>
