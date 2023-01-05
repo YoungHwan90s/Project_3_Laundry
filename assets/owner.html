@@ -25,7 +25,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <link href="/public/owner.css" rel="stylesheet" />
+    <link href="owner.css" rel="stylesheet" />
     <title>세탁센터 | 사장님</title>
   </head>
 
@@ -38,19 +38,17 @@
     </div>
 
     <span id="ownerInfo">
-      <div class="container" style="margin-top: 50px">
-        <h2 class="col" style="text-align: center; margin-bottom: 20px">
-          안녕하세요 <%= shopName %>님
-        </h2>
+      <div class="container" style="margin-top: 50px; text-align: center; margin-bottom: 20px">
+        <h4 class="col">오늘도 열심히 세탁해볼까요?</h4>
+        <h4 class="col" style="margin-top:30px" id="shopName"></h4>
       </div>
-
+      
+      </div>
       <div class="container" style="margin-top: 50px">
         <h4 class="col" style="text-align: center; margin-bottom: 20px">
           현재 보유 포인트
         </h4>
-        <h4 class="col" style="text-align: center; margin-bottom: 50px">
-          <%= ownerPoint %>점
-        </h4>
+        <h4 class="col" style="text-align: center; margin-bottom: 50px" id="ownerPoint"></h4>
       </div>
     </span>
 
@@ -274,9 +272,19 @@
     <script src="/api.js"></script>
   
     <script>
+      let owner;
+      getSelf(function (o) {
+      owner = o;
+      });
+
+      $(document).ready(function () {
+        my_Info();
+      });
+      
       function open_laundry_list() {
         $('#viewWorkLists').hide();
         $('#viewReview').hide();
+        laundry_list()
         $('#viewLaundries').show()
       }
 
@@ -287,6 +295,7 @@
       function open_myWork_list() {
         $('#viewLaundries').hide();
         $('#viewReview').hide();
+        myWork_list()
         $('#viewWorkLists').show()
       }
 
@@ -297,6 +306,7 @@
       function open_review_list() {
         $('#viewLaundries').hide();
         $('#viewWorkLists').hide();
+        myReview_list()
         $('#viewReview').show()
       }
 
@@ -304,11 +314,6 @@
         $('#viewReview').hide();
       }
 
-
-// 로딩 되었으면 기본 1번 페이지 피드 불러오기
-$(document).ready(function () {
-  laundry_list(1);
-})
 //  페이지 시작 시 작동 --------------------
 $(document).ready(() => {
     let pagenumber = localStorage.getItem('pagenumber')
@@ -332,6 +337,23 @@ $(document).ready(() => {
         laundry_list(3)
     })
   })
+
+      // 가게이름 & 포인트 조회
+      function my_Info() {
+        $.ajax({
+          type: 'GET',
+          url: '/api/laundries/owner/',
+          data: {},
+          success: function (response) {
+            let info = response['owner'];
+            let shopName = info['shopName']
+            let ownerPoint = info['ownerPoint']
+
+            $('#shopName').append(shopName);
+            $('#ownerPoint').append(ownerPoint);
+          },
+        });
+      }
 
       //세탁물 조회
       function laundry_list(parameter) {
@@ -390,11 +412,7 @@ $(document).ready(() => {
         });
       }
 
-      // 작업물 조회
-      $(document).ready(function () {
-        myWork_list();
-      });
-
+      //작업물 조회
       function myWork_list() {
         $.ajax({
           type: 'GET',
@@ -402,6 +420,7 @@ $(document).ready(() => {
           data: {},
           success: function (response) {
             let rows = response['getMyWork'];
+
             for (let i = 0; i < rows.length; i++) {
               let laundryId = rows[i]['laundryId'];
               let userId = rows[i]['userId']
@@ -473,10 +492,6 @@ $(document).ready(() => {
       }
 
       // 리뷰 조회
-      $(document).ready(function () {
-        myReview_list();
-      });
-
       function myReview_list() {
         $.ajax({
           type: 'GET',
@@ -510,17 +525,6 @@ $(document).ready(() => {
         });
       }
 
-
-      
-
-      // Modal alert
-      function customAlert(text, confirmCallback) {
-        $('#alertText').text(text);
-        $('#alertModal').modal('show');
-        if (confirmCallback) {
-          $('#alertModal .btn-confirm').click(confirmCallback);
-        }
-      }
     </script>
   </body>
 </html>

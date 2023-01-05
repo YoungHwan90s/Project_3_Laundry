@@ -21,7 +21,7 @@
       href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
-    <link href="/public/index.css" rel="stylesheet" />
+    <link href="index.css" rel="stylesheet" />
     <title>세탁파크로! | 로그인</title>
 
     <style>
@@ -94,7 +94,7 @@
               <button
                 type="button"
                 class="btn btn-outline-sparta btn-block"
-                onclick="window.location.href='/registerUser'"
+                onclick="window.location.href='register.html'"
               >
                 회원가입
               </button>
@@ -157,16 +157,10 @@
       crossorigin="anonymous"
     ></script>
 
-    <!-- <script src="/public/api.js"></script> -->
+    <script src="/api.js"></script>
 
     <script>
-      // if (localStorage.getItem("token")) {
-      //   getSelf(function () {
-      //     alert("이미 로그인이 되어있습니다. 상품 페이지로 이동합니다.");
-      //     window.location.replace("/goods.html");
-      //   });
-      // }
-
+      
       function sign_in() {
         let userEmail = $("#inputUserEmail").val();
         let pwd = $("#inputPwd").val();
@@ -179,8 +173,8 @@
           },
           success: function (response) {
             localStorage.setItem("token", response.token);
-            window.location.replace("/userWork");
-          },
+            window.location.href="/api/laundries/user";
+          }, 
           error: function (error) {
             customAlert(error.responseJSON.errorMessage);
           },

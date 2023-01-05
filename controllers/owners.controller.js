@@ -3,35 +3,36 @@ const OwnerService = require('../services/owners.service');
 class OwnersController {
   ownerService = new OwnerService();
 
-  // 사장 회원가입
-  ownerSignUp = async (req, res, next) => {
-    try {
-      const { shopName, pwd, ownerEmail, ownerPhone, ownerAddress } = req.body;
-      const ownerPoint = 0;
-      const createOwnerData = await this.ownerService.ownerSignUp(
-        shopName,
-        pwd,
-        ownerEmail,
-        ownerPhone,
-        ownerAddress,
-        ownerPoint
-      );
-      res.status(201).json({ data: createOwnerData });
-    } catch (error) {
-      res.status(400).json({ errorMessage: error.message });
-    }
-  };
+  // // 사장 회원가입
+  // ownerSignUp = async (req, res, next) => {
+  //   try {
+  //     const { shopName, pwd, ownerEmail, ownerPhone, ownerAddress } = req.body;
+  //     const ownerPoint = 0;
+  //     const createOwnerData = await this.ownerService.ownerSignUp(
+  //       shopName,
+  //       pwd,
+  //       ownerEmail,
+  //       ownerPhone,
+  //       ownerAddress,
+  //       ownerPoint
+  //     );
+  //     res.status(201).json({ data: createOwnerData });
+  //   } catch (error) {
+  //     res.status(400).json({ errorMessage: error.message });
+  //   }
+  // };
 
   // 사장 메인페이지
   getOwnerPoints = async (req, res, next) => {
     try {
       // const { ownerId } = res.locals.owner;
-      const ownerId = 1;
+      // console.log(ownerId)
+      const ownerId = 1
       if (!ownerId) throw new Error('포인트 조회에 실패하였습니다');
       const owner = await this.ownerService.findOwnerById(ownerId);
-      const shopName = owner.shopName;
-      const ownerPoint = owner.ownerPoint;
-      res.render('owner', { shopName, ownerPoint });
+
+      res.status(200).json({ owner })
+
     } catch (error) {
       res.status(400).json({ errorMessage: error.message });
     }
@@ -52,7 +53,9 @@ class OwnersController {
   getMyReviews = async (req, res, next) => {
     // const { ownerId } = res.locals.owner;
     const ownerId = 1;
+
     const myReviews = await this.ownerService.findMyReviews(ownerId);
+
     res.status(200).json({ myReviews });
   };
 

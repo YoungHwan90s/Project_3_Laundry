@@ -21,7 +21,7 @@
       href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
-    <link href="/public/index.css" rel="stylesheet" />
+    <link href="index.css" rel="stylesheet" />
     <title>세탁파크로! | 로그인</title>
 
     <style>
@@ -94,7 +94,7 @@
               <button
                 type="button"
                 class="btn btn-outline-sparta btn-block"
-                onclick="window.location.href='/registerOwner'"
+                onclick="window.location.href='registerOwner.html'"
               >
                 회원가입
               </button>
@@ -158,29 +158,29 @@
       crossorigin="anonymous"
     ></script>
 
-    <!-- <script src="/public/api.js"></script> -->
+    <script src="api.js"></script>
 
     <script>
-      // if (localStorage.getItem("token")) {
-      //   getSelf(function () {
-      //     alert("이미 로그인이 되어있습니다. 상품 페이지로 이동합니다.");
-      //     window.location.replace("/goods.html");
-      //   });
-      // }
+    //   if (localStorage.getItem("token")) {
+    //   getSelf(function () {
+    //     alert("이미 로그인이 되어있습니다. 상품 페이cccccc지로 이동합니다.");
+    //     window.location.replace("/owner.html");
+    // });
+    //   }
 
       function sign_in() {
         let ownerEmail = $("#inputOwnerEmail").val();
         let pwd = $("#inputPwd").val();
         $.ajax({
           type: "POST",
-          url: "/api/laundries/authowner",
+          url: "/api/log/authOwner",
           data: {
             ownerEmail: ownerEmail,
             pwd: pwd,
           },
           success: function (response) {
             localStorage.setItem("token", response.token);
-            window.location.href="/api/laundries/owner";
+            window.location.replace("/owner.html");
           },
           error: function (error) {
             customAlert(error.responseJSON.errorMessage);
@@ -188,10 +188,6 @@
         });
       }
 
-      function customAlert(text) {
-        $("#alertText").text(text);
-        $("#alertModal").modal("show");
-      }
     </script>
   </body>
 </html>

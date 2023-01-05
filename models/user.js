@@ -23,27 +23,24 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true
       },
       ID: {
-        type: DataTypes.INTEGER
+        type: DataTypes.STRING
       },
       pwd: {
         type: DataTypes.INTEGER
       },
       userName: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
       },
       userEmail: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
       },
       userPhone: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
       },
       userAddress: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
       },
       userPoint: {
-        type: DataTypes.INTEGER,
-      },
-      createdAt: {
         type: DataTypes.DATE,
       }
     },
