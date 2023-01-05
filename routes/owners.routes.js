@@ -6,7 +6,7 @@ const OwnersController = require('../controllers/owners.controller');
 const ownersController = new OwnersController();
 
 // 사장 메인페이지
-router.get('/owner/', ownersController.getOwnerPoints)
+router.get('/owner', ownersController.getOwnerPoints)
 // 세탁서비스조회
 router.get('/owner/laundry_list', ownersController.getLaundries);
 // 세탁서비스조회:수거하기
