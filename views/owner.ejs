@@ -21,52 +21,42 @@
       href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
-    <link href="/public/index.css" rel="stylesheet" />
-    <title>세탁파크로! | 메인</title>
-
-    <style>
-      .jumbotron {
-        border-radius: 0;
-      }
-
-      .input-group-text {
-        border-right-color: white;
-        background-color: white;
-      }
-
-      .input-group > input {
-        border-left-color: white;
-      }
-    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link href="/public/owners.css" rel="stylesheet" />
+    <title>세탁센터 | 사장님</title>
   </head>
 
   <body>
     <div
       class="jumbotron bg-sparta text-white text-center"
-      onclick="window.location.href='/'"
+      onclick="window.location.href='/api/laundries/owner/'"
     >
-      <h1 class="font-weight-bold">세탁파크로!</h1>
-    </div>
-    <div class="wrap">
-<<<<<<< HEAD:views/index.ejs
+      <h1 class="font-weight-bold">스파르타 세탁소</h1>
     </div>
 
-    <div>
-      <div class="card mx-auto" style="max-width: 480px">
-        <div class="card-body">
-          <div class="row d-flex justify-content-around">
-            <div class="col-6 pl-2">
-              <button
-                type="button"
-                class="btn btn-outline-sparta btn-block"
-                onclick="window.location.href='/indexUser.ejs'"
-              >
-                일반고객님 전용
-              </button>
-            </div>
-=======
+    <span id="ownerInfo">
+      <div class="container" style="margin-top: 50px">
+        <h2 class="col" style="text-align: center; margin-bottom: 20px">
+          안녕하세요 <%= shopName %>님
+        </h2>
+      </div>
+
+      <div class="container" style="margin-top: 50px">
+        <h4 class="col" style="text-align: center; margin-bottom: 20px">
+          현재 보유 포인트
+        </h4>
+        <h4 class="col" style="text-align: center; margin-bottom: 50px">
+          <%= ownerPoint %>점
+        </h4>
+      </div>
+    </span>
+
+    <div class="wrap">
       <div class="row d-flex justify-content-around">
-        <div class="col-4 pr-2">
+        <div class="col-6 pr-2">
           <button
             onclick="open_laundry_list()"
             type="button"
@@ -76,7 +66,7 @@
             세탁물 조회
           </button>
         </div>
-        <div class="col-4 pl-2">
+        <div class="col-6 pl-2">
           <button
             onclick="open_myWork_list()"
             type="button"
@@ -85,18 +75,9 @@
             작업물 조회
           </button>
         </div>
-        <div class="col-4 pl-2">
-          <button
-            onclick="open_review_list()"
-            type="button"
-            class="btn btn-outline-sparta btn-block"
-          >
-            리뷰 조회
-          </button>
-        </div>
       </div>
     </div>
-<!-------------------------------------세탁물 조회------------------------------------------->
+
     <div class="laundry_list" id="viewLaundries">
       <div class="container">
         <div class="row">
@@ -110,10 +91,9 @@
                   <th scope="col">사진</th>
                   <th scope="col">상태</th>
                   <th scope="col">생성일</th>
-                  <th scope="col">메뉴</th>
+                  <th scope="col">담기</th>
                 </tr>
               </thead>
-              
             </table>
           </div>
         </div>
@@ -122,17 +102,6 @@
       <div class="wrap">
         <div class="row d-flex justify-content-around">
           <div class="col-3 pr-2">
-            
-            <ul class="pagination justify-content-center mt-3">
-              <li class="page-item">
-                  <a class="page-link" href="#">Previous</a>
-              </li>
-              <li class="page-item"><a id="page-1" class="page-link" href="#">1</a></li>
-              <li class="page-item"><a id="page-2" class="page-link" href="#">2</a></li>
-              <li class="page-item"><a id="page-3" class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
-
             <button
               onclick="close_laundry_list()"
               type="button"
@@ -141,33 +110,11 @@
             >
               닫기
             </button>
->>>>>>> 19a70c0294a1172f588feccb2dc6e9807605be40:views/owner.ejs
           </div>
         </div>
       </div>
     </div>
 
-<<<<<<< HEAD:views/index.ejs
-    <div>
-      <div class="card mx-auto" style="max-width: 480px">
-        <div class="card-body">
-          <div class="row d-flex justify-content-around">
-            <div class="col-6 pl-2">
-              <button
-                type="button"
-                class="btn btn-outline-sparta btn-block"
-                onclick="window.location.href='/indexOwner.ejs'"
-              >
-                세탁업자님 전용
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-=======
-<!-------------------------------------작업물 조회------------------------------------------->
     <div class="laundry_list" id="viewWorkLists">
     <div class="container">
       <div class="row">
@@ -182,10 +129,9 @@
                 <th scope="col">상태</th>
                 <th scope="col">생성일</th>
                 <th scope="col">세탁물 배송상황</th>
-                <th scope="col">메뉴</th>
+                <th scope="col">작업취소</th>
               </tr>
             </thead>
-            
 
           </table>
         </div>
@@ -196,7 +142,7 @@
       <div class="row d-flex justify-content-around">
         <div class="col-3 pr-2">
           <button
-            onclick="close_myWork_list()"
+            onclick="close_laundry_list()"
             type="button"
             class="btn btn-sparta btn-block"
             style="margin-right: 15px"
@@ -207,58 +153,8 @@
       </div>
     </div>
   </div>
-
-<!-------------------------------------리뷰 조회------------------------------------------->
-  <div class="laundry_list" id="viewReview">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <table class="table table-bordered" id="viewMyReview">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">세탁물</th>
-                <th scope="col">요청사항</th>
-                <th scope="col">사진</th>
-                <th scope="col">생성일</th>
-                <th scope="col">리뷰</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">${laundryId}</th>
-                <td>${laundryName}</td>
-                <td>${request}</td>
-                <td>${img}</td>
-                <td>${createdAt}</td>
-                <td>${review}</td>
-              </tr>
-            </tbody>
-
-          </table>
-        </div>
-      </div>
-    </div>
-    <!-- 닫기 버튼-->
-    <div class="wrap">
-      <div class="row d-flex justify-content-around">
-        <div class="col-3 pr-2">
-          <button
-            onclick="close_review_list()"
-            type="button"
-            class="btn btn-sparta btn-block"
-            style="margin-right: 15px"
-          >
-            닫기
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
 
   <!-- Modalalert-->
->>>>>>> 19a70c0294a1172f588feccb2dc6e9807605be40:views/owner.ejs
     <div
       class="modal text-left"
       id="alertModal"
@@ -280,12 +176,11 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body" id="alertText">
-          </div>
+          <div class="modal-body" id="alertText"></div>
           <div class="modal-footer">
             <button
               type="button"
-              class="btn btn-outline-sparta"
+              class="btn btn-outline-sparta btn-confirm"
               data-dismiss="modal"
             >
               확인
@@ -295,8 +190,6 @@
       </div>
     </div>
 
-<<<<<<< HEAD:views/index.ejs
-=======
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script
@@ -316,81 +209,41 @@
     ></script>
 
     <script src="/api.js"></script>
-  
+
     <script>
       function open_laundry_list() {
-        $('#viewWorkLists').hide();
-        $('#viewReview').hide();
         $('#viewLaundries').show()
+        $('#viewWorkLists').hide();
       }
 
       function close_laundry_list() {
         $('#viewLaundries').hide();
+        $('#viewWorkLists').hide();
       }
 
       function open_myWork_list() {
-        $('#viewLaundries').hide();
-        $('#viewReview').hide();
-        $('#viewWorkLists').show()
+        $('#viewWorkLists').show();
+        $('#viewLaundries').hide()
       }
 
       function close_myWork_list() {
         $('#viewWorkLists').hide();
       }
 
-      function open_review_list() {
-        $('#viewLaundries').hide();
-        $('#viewWorkLists').hide();
-        $('#viewReview').show()
-      }
+      // 세탁물 조회
+      $(document).ready(function () {
+        laundry_list();
+      });
 
-      function close_review_list() {
-        $('#viewReview').hide();
-      }
-
-
-// 로딩 되었으면 기본 1번 페이지 피드 불러오기
-$(document).ready(function () {
-getFeed(1);
-})
-//  페이지 시작 시 작동 --------------------
-$(document).ready(() => {
-    let pagenumber = localStorage.getItem('pagenumber')
-    if (!pagenumber) {
-        laundry_list(1)
-    } else {
-        laundry_list(parseInt(pagenumber))
-    }
-    document.getElementById('page-1').addEventListener('click', () => {
-        localStorage.setItem('pagenumber', 1)
-        laundry_list(1)
-    })
-
-    document.getElementById('page-2').addEventListener('click', () => {
-        localStorage.setItem('pagenumber', 2)
-        laundry_list(2)
-    })
-
-    document.getElementById('page-3').addEventListener('click', () => {
-        localStorage.setItem('pagenumber', 3)
-        laundry_list(3)
-    })
-  })
-
-      //세탁물 조회
-      function laundry_list(parameter) {
+      function laundry_list() {
         $.ajax({
           type: 'GET',
-          url: `/api/laundries/owner/laundry_list?pageNum=${parameter}`,
+          url: '/api/laundries/owner/laundry_list',
           data: {},
           success: function (response) {
             let rows = response['laundries'];
-
-            $('#laundry_list').empty()
-
             for (let i = 0; i < rows.length; i++) {
               let laundryId = rows[i]['laundryId'];
-              let userId = rows[i]['userId']
               let laundryName = rows[i]['laundryName'];
               let request = rows[i]['request'];
               let img = rows[i]['img'];
@@ -406,8 +259,7 @@ $(document).ready(() => {
                                   <td>${status}</td>
                                   <td>${createdAt}</td>
                                   <td>
-                                    <button onclick="(${userId})" type="button" class="btn btn-success"><i class="fa fa-user"></i></button>
-                                    <button onclick="addToMyWork(${laundryId})" type="button" class="btn btn-dark"><i class="fa fa-truck"></i></button>
+                                    <button onclick="addToMyWork(${laundryId})" type="button" class="btn btn-primary"><i class="fa fa-folder"></i></button>
                                   </td>
                                 </tr>
                               </tbody>`;
@@ -448,7 +300,6 @@ $(document).ready(() => {
             let rows = response['getMyWork'];
             for (let i = 0; i < rows.length; i++) {
               let laundryId = rows[i]['laundryId'];
-              let userId = rows[i]['userId']
               let laundryName = rows[i]['laundryName'];
               let request = rows[i]['request'];
               let img = rows[i]['img'];
@@ -476,8 +327,7 @@ $(document).ready(() => {
                                     </form>
                                   </td>
                                   <td>
-                                  <button onclick="(${userId})" type="button" class="btn btn-success"><i class="fa fa-user"></i></button>
-                                  <button type="button" onclick="deleteWork(${laundryId})" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                  <button type="button" onclick="deleteWork(${laundryId})" class="btn btn-danger"><i class="fa fa-remove"></i></button>
                                   </td>
                                 </tr>
                               </tbody>`
@@ -489,7 +339,9 @@ $(document).ready(() => {
 
       // 세탁물 배송상황 변경하기
       function updateStatus(laundryId) {
+        console.log(laundryId)
         const status = $(`#select_status_${laundryId}`).val();
+        console.log(status)
         $.ajax({
           type: 'PUT',
           url: `/api/laundries/owner/ownerWorkList/${laundryId}/edit`,
@@ -525,6 +377,5 @@ $(document).ready(() => {
         }
       }
     </script>
->>>>>>> 19a70c0294a1172f588feccb2dc6e9807605be40:views/owner.ejs
   </body>
 </html>
