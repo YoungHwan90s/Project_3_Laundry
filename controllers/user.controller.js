@@ -44,7 +44,7 @@ class Usercontroller {
         // const { userId } = res.locals.user;
         const { laundryId, laundryName, img, request, status } = req.body; 
         const userId = 1;
-        const createLaundryData = await this.UserService.createLaundry(
+        await this.UserService.createLaundry(
           laundryId, 
           userId, 
           laundryName, 

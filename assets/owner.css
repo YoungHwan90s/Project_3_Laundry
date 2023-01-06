@@ -76,3 +76,21 @@
     border-color: #46914f !important;
   }
   
+  .mytitle {
+    background-image: url('https://www.laundrygo.com/wp-content/uploads/2022/12/company_vision_img_03-1-1.jpg');
+    background-size: cover;
+    height: 400px;
+  }
+
+  nav {
+    float: right;
+  }
+  .nav_items > li {
+      display: inline-block;
+  }
+  .nav_items > li > a {
+      line-height: 60px;
+      padding: 0 30px;
+      color: rgba(0, 0, 0, 0.4);
+      color: ghostwhite;
+  }

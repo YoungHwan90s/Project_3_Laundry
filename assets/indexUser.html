@@ -42,7 +42,7 @@
 
   <body>
     <div
-      class="jumbotron bg-sparta text-white text-center"
+      class="jumbotron bg-sparta text-white text-center mytitle"
       onclick="window.location.href='/'"
     >
       <h1 class="font-weight-bold">로그인(일반 고객용)</h1>
@@ -173,7 +173,7 @@
           },
           success: function (response) {
             localStorage.setItem("token", response.token);
-            window.location.href="/usermain";
+            window.location.replace("/user.html");
           }, 
           error: function (error) {
             customAlert(error.responseJSON.errorMessage);

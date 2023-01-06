@@ -48,8 +48,17 @@
   </head>
 
   <body>
+    <div id="wrap">
+      <header>
+          <nav>
+              <ul class="nav_items">
+                  <li><a onclick="window.location.href='/', style='cursor: pointer';"><strong><button>로그아웃</button></strong></a></li>
+              </ul>
+          </nav>
+      </header>
+  </div>
     <div
-      class="jumbotron bg-sparta text-white text-center"
+      class="jumbotron bg-sparta text-white text-center mytitle"
       onclick="window.location.href='/api/laundries/user/'"
     >
       <h1 class="font-weight-bold">스파르타 세탁소</h1>
@@ -147,7 +156,6 @@
                 <th scope="col">요청사항</th>
                 <th scope="col">사진</th>
                 <th scope="col"> 제출하기 </th>
-                <th scope="col"> userid=1 </th>
               </tr>
             
               <tr>
@@ -166,7 +174,6 @@
                 <th scope="col"> 
                   <button onclick="addToLaundry()" type="submit" class="btn btn-primary">Submit</button>
                 </th>
-                <th scope="col"><input type="text" id="inputuserId"></th>
               </tr>
             </thead>
           </table>
@@ -309,7 +316,7 @@
  
       //세탁물 신청하기
       function addToLaundry() {
-        const userId  = $("#inputuserId").val();
+        // const userId  = $("#inputuserId").val();
         const laundryName = $("#inputlaundryName").val();
         const img = $("#inputimg").val();
         const request = $("#inputrequest").val();
@@ -319,7 +326,7 @@
           type: 'POST',
           url: `/api/laundries/user/laundry/newRequest`,
           data: {
-            userId: userId,
+            // userId: userId,
             laundryName :laundryName,
             img :img,
             request : request,
