@@ -26,23 +26,25 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <link href="/public/owners.css" rel="stylesheet" />
-    <style>
-      #my_modal {
-          display: none;
-          width: 300px;
-          padding: 20px 60px;
-          background-color: #fefefe;
-          border: 1px solid #888;
-          border-radius: 3px;
-      }
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          //  빨래 사진 불러오기
+          axios.get('/user/img_load').then((response) => {
+              const profile_img = document.querySelector('#profile-img');
+              file_name = response.data;
+              profile_img.src = `../views/profile_image/${file_name}`;
+          })
 
-      #my_modal .modal_close_btn {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-      }
-  </style>
-    <title>세탁센터 | 사장님</title>
+
+          const upload_btn = document.querySelector('#upload-btn');
+          const image_btn = document.querySelector('#profile-img');
+          const submit_btn = document.querySelector('#submit-btn');
+          image_btn.addEventListener('click', () => { upload_btn.click() });
+          upload_btn.addEventListener('change', () => { submit_btn.click(); });
+      })
+  </script>
+   
+    <title>세탁센터 | 고객님</title>
   </head>
 
   <body>
@@ -151,8 +153,17 @@
             
               <tr>
                 <th scope="col"><input type="text" id="inputlaundryName"></th>
-                <th scope="col"><input type="text" id="inputimg"></th>
                 <th scope="col"><input type="text" id="inputrequest"></th>
+                <th scope="col"> <aside>
+                  <img id="profile-img" width="125;"
+                       src="https://cdn-icons-png.flaticon.com/512/6041/6041433.png"
+                       class="rounded float-start" alt="...">
+                  <form method="POST" action="/user/img_upload" enctype="multipart/form-data">
+                      <div><input style="display:none" id="upload-btn" type="file" name="file" accept="image/*"/></div>
+                      <input style="display:none" type="submit" id="submit-btn"/>
+                  </form>
+              </aside></th>
+                
                 <th scope="col"><input type="text" id="inputstatus"></th>          
                 <th scope="col"> 
                   <button onclick="addToLaundry()" type="submit" class="btn btn-primary">Submit</button>
