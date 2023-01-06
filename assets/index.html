@@ -22,68 +22,84 @@
       rel="stylesheet"
     />
     <link href="index.css" rel="stylesheet" />
-    <title>세탁파크로! | 메인</title>
-
+    <title>스파르타 세탁시장 | 메인</title>
     <style>
       .jumbotron {
         border-radius: 0;
       }
-
       .input-group-text {
         border-right-color: white;
         background-color: white;
       }
-
       .input-group > input {
         border-left-color: white;
       }
+      .mytitle {
+        background-image: url('https://www.laundrygo.com/wp-content/uploads/2022/12/company_vision_img_03-1-1.jpg');
+        background-size: cover;
+        height: 400px;
+      }
     </style>
   </head>
-
   <body>
     <div
-      class="jumbotron bg-sparta text-white text-center"
+      class="jumbotron bg-sparta text-white text-center mytitle"
       onclick="window.location.href='/'"
     >
-      <h1 class="font-weight-bold">세탁파크로!</h1>
+      <h1 class="font-weight-bold">스파르타 세탁시장</h1>
     </div>
+    <p class="message"><h5 class="col" style="text-align: center; margin-bottom: 20px"></h5></p>
     <div class="wrap">
-    </div>
-    <div>
+      <div class="card mx-auto" style="max-width: 480px">
+        <div class="card-body">
+          <div class="row d-flex justify-content-around">
+              <div class="col-6 pl-2">
+                <button
+                  type="button"
+                  class="btn btn-sparta btn-block"
+                  onclick="window.location.href='/indexUser.html'"
+                >
+                  일반(로그인)
+                </button>
+              </div>
+              <div class="col-6 pl-2">
+                  <button
+                  type="button"
+                  class="btn btn-outline-sparta btn-block"
+                  onclick="window.location.href='/indexOwner.html'"
+                  >
+                  업자(로그인)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="message"><h3 class="col" style="text-align: center; margin-bottom: 20px"></h3></p>
       <div class="card mx-auto" style="max-width: 480px">
         <div class="card-body">
           <div class="row d-flex justify-content-around">
             <div class="col-6 pl-2">
               <button
                 type="button"
-                class="btn btn-outline-sparta btn-block"
-                onclick="window.location.href='indexUser.html'"
-              >
-                일반고객님 전용
+                class="btn btn-sparta btn-block"
+                onclick="window.location.href='/register.html'"
+                >
+                일반(회원가입)
               </button>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <div class="card mx-auto" style="max-width: 480px">
-        <div class="card-body">
-          <div class="row d-flex justify-content-around">
-            <div class="col-6 pl-2">            
-                <button
+            <div class="col-6 pl-2">
+              <button
                 type="button"
                 class="btn btn-outline-sparta btn-block"
-                onclick="window.location.href='indexOwner.html'"
+                onclick="window.location.href='/registerOwner.html'"
                 >
-                세탁업자님 전용
+                업자(회원가입)
               </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
     <div
       class="modal text-left"
       id="alertModal"
@@ -119,5 +135,6 @@
         </div>
       </div>
     </div>
+  </div>
   </body>
 </html>

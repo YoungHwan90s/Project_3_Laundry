@@ -40,7 +40,7 @@
 
   <body>
     <div
-      class="jumbotron bg-sparta text-white text-center"
+      class="jumbotron bg-sparta text-white text-center mytitle"
       onclick="window.location.href='/'"
     >
       <h1 class="font-weight-bold">회원가입(일반 고객용)</h1>
@@ -270,6 +270,14 @@
         });
       }
 
+      
+      function customAlert(text, confirmCallback) {
+        $("#alertText").text(text);
+        $("#alertModal").modal("show");
+        if (confirmCallback) {
+          $("#alertModal .btn-confirm").click(confirmCallback);
+        }
+      }
     </script>
   </body>
 </html>

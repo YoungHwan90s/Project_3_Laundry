@@ -3,10 +3,10 @@ const router = express.Router();
 
 const signsRouter = require('./signs.routes');
 const ownersRouter = require('./owners.routes');
-// const usersRouter = require('./users.routes');
+const usersRouter = require('./users.routes');
 
 // 미들웨어
 router.use('/log', signsRouter);
-router.use('/laundries', ownersRouter);
+router.use('/laundries/', [signsRouter, ownersRouter, usersRouter]);
 
 module.exports = router;
