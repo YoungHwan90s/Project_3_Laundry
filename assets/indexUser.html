@@ -166,21 +166,21 @@
         let pwd = $("#inputPwd").val();
         $.ajax({
           type: "POST",
-          url: "/api/laundries/auth",
+          url: "/api/log/authUser",
           data: {
             userEmail: userEmail,
             pwd: pwd,
           },
           success: function (response) {
             localStorage.setItem("token", response.token);
-            window.location.href="/api/laundries/user";
+            window.location.href="/usermain";
           }, 
           error: function (error) {
             customAlert(error.responseJSON.errorMessage);
           },
         });
       }
-
+    
       function customAlert(text) {
         $("#alertText").text(text);
         $("#alertModal").modal("show");
