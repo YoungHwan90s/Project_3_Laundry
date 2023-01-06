@@ -13,10 +13,10 @@ router.post("/customeruser", usercontroller.createUser);
 
 
 // 손님 메인 페이지 
-router.get("/user/:id", usercontroller.getUserById);
+router.get("/user", usercontroller.getUserById);
 
 // 내 세탁물 조회 
-router.get("/user/laundry/:userId/list", usercontroller.getLaundry);
+router.get("/user/laundry/list", usercontroller.getLaundry);
 
 // 세탁물 등록하기  
 router.post("/user/laundry/newRequest/", usercontroller.createLaundry);
@@ -25,7 +25,10 @@ router.post("/user/laundry/newRequest/", usercontroller.createLaundry);
 router.get("/user/laundry/list/:laundryId", usercontroller.getLaundryById);
 
 // 세탁물 취소하기 
-router.delete("/user/laundry/:userId/list/:laundryId/delete", usercontroller.deleteLaundry);
+router.delete("/user/laundry/list/:laundryId/delete", usercontroller.deleteLaundry);
+
+// 평점 주기
+router.put("/user/:laundryId/review", usercontroller.updatereview);
 
 // 테스트용 
 // router.get('/',(req,res) => {

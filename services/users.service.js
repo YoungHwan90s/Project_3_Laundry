@@ -47,10 +47,12 @@ class UserService {
             }; 
     };
 
+    // 유저 메인페이지 
     findUserById = async (userId) => {
         const findUser = await this.userRepository.findUserById(userId);
 
         return {
+            userName: findUser.userName,
             userPoint: findUser.userPoint, 
         };
     };
@@ -83,9 +85,14 @@ class UserService {
         return allLundry.map((userId) => {
             return {
 
+                laundryId: userId.laundryId,
+                userId: userId.userId,
                 laundryName: userId.laundryName,
-                status:userId.status ,
-
+                img: userId.img,
+                request: userId.request,
+                status: userId.status,
+                createdAt: userId.createdAt,
+                review:userId.review
             };
         });
 
@@ -102,6 +109,7 @@ class UserService {
             request:findLaundry.request, 
             status:findLaundry.status,
             createdAt:findLaundry.createAt,
+            review:findLaundry.review,
         };
     };
 
@@ -121,6 +129,20 @@ class UserService {
             createdAt:findLaundry.createAt,
         };
     };
+
+    // 평점 주기 
+    updateReview = async (laundryId, review ) => {
+        const findLaundry = await this.userRepository.findLaundryById(laundryId);
+        if (!findLaundry) throw new Error('작업이 존재하지 않습니다.');
+
+        await this.userRepository.updateReview(laundryId, review)
+
+        return {
+            review: findLaundry.review,
+        };
+    };
+
+
 }
 
 module.exports = UserService;

@@ -44,7 +44,7 @@ class UserRepository {
         return myLundry; 
     };
 
-    createLaundry = async (laundryId, userId, laundryName, img, request, status) => {
+    createLaundry = async (laundryId, userId, laundryName, img, request, status, review) => {
         const createLaundryData = await Laundry.create({
             laundryId, 
             userId, 
@@ -52,6 +52,7 @@ class UserRepository {
             img, 
             request, 
             status,
+            review,
         });
         
         return createLaundryData;
@@ -63,11 +64,23 @@ class UserRepository {
         return laundry; 
     }; 
 
-    deleteLaundry = async(laundryId, userId) => {
-        const laundry = await Laundry.destroy({where: {laundryId, userId}});
+    deleteLaundry = async(laundryId) => {
+        const laundry = await Laundry.destroy({where: {laundryId}});
 
         return laundry; 
     };
+
+    // 평점 주기 
+
+    updateReview = async(laundryId, review) => {
+        const updateLaundryreview = await Laundry.update(
+            {review}, 
+            {where: {laundryId}}
+        );
+        
+        return updateLaundryreview;
+    
+    }
 }
 
 
