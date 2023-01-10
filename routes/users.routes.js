@@ -4,7 +4,7 @@ const router = express.Router();
 
 const Usercontroller = require("../controllers/user.controller");
 const usercontroller = new Usercontroller(); 
-
+// const userMiddleware = require('../middlewares/auth-middleware.js');
 
 
 // 임시 테스트 회원가입 구현 

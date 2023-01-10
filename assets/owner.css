@@ -43,13 +43,19 @@
   }
 
   .alert {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     margin-bottom: 0;
     width: 100%;
   }
 
+  @media screen and (min-width: 576px) {
+    .alert {
+      width: fit-content;
+      max-width: 480px;
+    }
+  }
   .alert-sparta {
     color: #46914f;
     background-color: #ffe7ff;
@@ -94,3 +100,14 @@
       color: rgba(0, 0, 0, 0.4);
       color: ghostwhite;
   }
+
+  /* .fade-out-text {
+    font-family: Arial;
+    font-size: 20px;
+    animation: fadeOut 5s;
+  }
+
+  @keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+  } */

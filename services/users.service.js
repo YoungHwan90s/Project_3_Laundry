@@ -5,7 +5,6 @@ class UserService {
 
     findAllUser = async (user) => {
         const allUsers = await this.userRepository.findAllUser();
-        console.log({allUsers});
         
         return allUsers.map((user) => {
             return {
@@ -80,7 +79,6 @@ class UserService {
     
     findAllLaundry = async (userId) => {
         const allLundry = await this.userRepository.findAllLaundry(userId);
-        console.log({allLundry});
 
         return allLundry.map((userId) => {
             return {

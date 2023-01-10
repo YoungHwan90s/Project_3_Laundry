@@ -172,6 +172,7 @@
             pwd: pwd,
           },
           success: function (response) {
+            console.log(response)
             localStorage.setItem("token", response.token);
             window.location.replace("/user.html");
           }, 

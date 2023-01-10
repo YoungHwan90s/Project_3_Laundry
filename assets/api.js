@@ -1,3 +1,31 @@
+const socket = io.connect("/");
+
+socket.on("GET_LAUNDRY", function (data) {
+  const { laundryId, date } = data;
+  makeBuyNotification(laundryId, date);
+});
+
+function getLaundry(laundryId) {
+
+  socket.emit("GET", {
+    laundryId
+  });
+}
+
+function makeBuyNotification(laundryId, date) {
+  const messageHtml = `세탁번호 ${laundryId}</a>을 작업물로 담았어요 <br /><small>(${date})</small>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>`;
+  const alt = $("#customerAlert");
+  if (alt.length) {
+    alt.html(messageHtml);
+  } else {
+    const htmlTemp = `<div class="alert alert-sparta" role="alert" id="customerAlert">${messageHtml}</div>`;
+    $("body").append(htmlTemp);
+  }
+}
+
 // 모달 알림창
 function customAlert(text, confirmCallback) {
   $('#alertText').text(text);
@@ -17,7 +45,7 @@ function signOut() {
 function getSelf(callback) {
   $.ajax({
     type: 'GET',
-    url: 'api/log/owners/me',
+    url: '/api/log/owner',
     headers: {
       authorization: `Bearer ${localStorage.getItem('token')}`,
     },

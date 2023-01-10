@@ -14,7 +14,6 @@ module.exports = (req, res, next) => {
 
   try {
     const { ownerId } = jwt.verify(authToken, "customized-secret-key");
-
     Owner.findByPk(ownerId).then((owner) => {
       res.locals.owner = owner;
       next();

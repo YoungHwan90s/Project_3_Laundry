@@ -277,19 +277,19 @@
       integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
       crossorigin="anonymous"
     ></script>
-
+    <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
     <script src="/api.js"></script>
   
     <script>
-      let owner;
-      getSelf(function (o) {
-      owner = o;
-      });
+    $(document).ready(function () {
+      getSelf(function (owner) {
+        let shopName = owner.shopName
+        let ownerPoint = owner.ownerPoint
+        $('#shopName').append(shopName);
+        $('#ownerPoint').append(ownerPoint);
+      })
+    })
 
-      $(document).ready(function () {
-        my_Info();
-      });
-      
       function open_laundry_list() {
         $('#viewWorkLists').hide();
         $('#viewReview').hide();
@@ -347,29 +347,15 @@ $(document).ready(() => {
     })
   })
 
-      // 가게이름 & 포인트 조회
-      function my_Info() {
-        $.ajax({
-          type: 'GET',
-          url: '/api/laundries/owner/',
-          data: {},
-          success: function (response) {
-            let info = response['owner'];
-            let shopName = info['shopName']
-            let ownerPoint = info['ownerPoint']
-
-            $('#shopName').append(shopName);
-            $('#ownerPoint').append(ownerPoint);
-          },
-        });
-      }
-
       //세탁물 조회
       function laundry_list(parameter) {
         $.ajax({
           type: 'GET',
-          url: `/api/laundries/owner/laundry_list?pageNum=${parameter}`,
+          url: `/api/owner/laundry_list?pageNum=${parameter}`,
           data: {},
+          headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
           success: function (response) {
             let rows = response['laundries'];
 
@@ -408,9 +394,13 @@ $(document).ready(() => {
       function addToMyWork(laundryId) {
         $.ajax({
           type: 'POST',
-          url: `/api/laundries/owner/laundry_list/${laundryId}/add`,
+          url: `/api/owner/laundry_list/${laundryId}/add`,
           data: {},
+          headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
           success: function (response) {
+            getLaundry(laundryId)
             customAlert(response['msg'], function () {
               window.location.reload();
             });
@@ -425,10 +415,15 @@ $(document).ready(() => {
       function myWork_list() {
         $.ajax({
           type: 'GET',
-          url: '/api/laundries/owner/ownerWorkList',
+          url: '/api/owner/ownerWorkList',
           data: {},
+          headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
           success: function (response) {
             let rows = response['getMyWork'];
+
+            $('#viewWorks').empty()
 
             for (let i = 0; i < rows.length; i++) {
               let laundryId = rows[i]['laundryId'];
@@ -476,8 +471,11 @@ $(document).ready(() => {
         const status = $(`#select_status_${laundryId}`).val();
         $.ajax({
           type: 'PUT',
-          url: `/api/laundries/owner/ownerWorkList/${laundryId}/edit`,
+          url: `/api/owner/ownerWorkList/${laundryId}/edit`,
           data: { status },
+          headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
           success: function (response) {
             customAlert(response['msg'], function () {
               window.location.reload();
@@ -490,8 +488,11 @@ $(document).ready(() => {
       function deleteWork(laundryId) {
         $.ajax({
           type: 'DELETE',
-          url: `/api/laundries/owner/ownerWorkList/${laundryId}/delete`,
+          url: `/api/owner/ownerWorkList/${laundryId}/delete`,
           data: {},
+          headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
           success: function (response) {
             customAlert(response['msg'], function () {
               window.location.reload();
@@ -504,10 +505,15 @@ $(document).ready(() => {
       function myReview_list() {
         $.ajax({
           type: 'GET',
-          url: '/api/laundries/owner/ownerReview',
+          url: '/api/owner/ownerReview',
           data: {},
+          headers: {
+          authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
           success: function (response) {
             let rows = response['myReviews'];
+
+            $('#viewMyReview').empty()
 
             for (let i = 0; i < rows.length; i++) {
               let laundryId = rows[i]['laundryId'];

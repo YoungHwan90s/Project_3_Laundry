@@ -33,7 +33,7 @@ class Usercontroller {
       const userName = user.userName;
       const userPoint = user.userPoint;
       
-      res.render('user', { userName, userPoint});
+      res.render('user');
 
       // res.status(200).json({data: user}); 
     };
