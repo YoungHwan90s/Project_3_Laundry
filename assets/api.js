@@ -1,19 +1,20 @@
 const socket = io.connect("/");
 
 socket.on("GET_LAUNDRY", function (data) {
-  const { laundryId, date } = data;
-  makeBuyNotification(laundryId, date);
+  const { shopName, laundryId, date } = data;
+  makeBuyNotification(shopName, laundryId, date);
 });
 
-function getLaundry(laundryId) {
+function getLaundry(shopName, laundryId) {
 
   socket.emit("GET", {
+    shopName,
     laundryId
   });
 }
 
-function makeBuyNotification(laundryId, date) {
-  const messageHtml = `세탁번호 ${laundryId}</a>을 작업물로 담았어요 <br /><small>(${date})</small>
+function makeBuyNotification(shopName, laundryId, date) {
+  const messageHtml = `${shopName} 사장님이 세탁번호 ${laundryId}</a>을 작업물로 담았어요 <br /><small>(${date})</small>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>`;

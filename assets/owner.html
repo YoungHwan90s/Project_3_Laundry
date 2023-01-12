@@ -63,7 +63,7 @@
 
     <div class="wrap">
       <div class="row d-flex justify-content-around">
-        <div class="col-4 pr-2">
+        <div class="col-3 pr-2">
           <button
             onclick="open_laundry_list()"
             type="button"
@@ -73,7 +73,7 @@
             세탁물 조회
           </button>
         </div>
-        <div class="col-4 pl-2">
+        <div class="col-3 pl-2">
           <button
             onclick="open_myWork_list()"
             type="button"
@@ -82,13 +82,22 @@
             작업물 조회
           </button>
         </div>
-        <div class="col-4 pl-2">
+        <div class="col-3 pl-2">
           <button
             onclick="open_review_list()"
             type="button"
             class="btn btn-outline-sparta btn-block"
           >
             리뷰 조회
+          </button>
+        </div>
+        <div class="col-3 pl-2">
+          <button
+            onclick="window.location.href='/ownerChat.html'"
+            type="button"
+            class="btn btn-outline-sparta btn-block"
+          >
+            사장님 채팅방
           </button>
         </div>
       </div>
@@ -222,7 +231,6 @@
       </div>
     </div>
   </div>
-
 
   <!-- Modalalert-->
     <div
@@ -391,6 +399,7 @@ $(document).ready(() => {
       }
 
       //세탁물 담기
+      // 서버에서 보낸 owner정보 받아서 shopName 같이 getLaundry로 넘기기
       function addToMyWork(laundryId) {
         $.ajax({
           type: 'POST',
@@ -400,8 +409,9 @@ $(document).ready(() => {
           authorization: `Bearer ${localStorage.getItem('token')}`,
           },
           success: function (response) {
-            getLaundry(laundryId)
-            customAlert(response['msg'], function () {
+            let shopName = response['shopName']
+            getLaundry(shopName, laundryId)
+            customAlert('선택하신 세탁물을 작업 목록에 저장하였습니다.', function () {
               window.location.reload();
             });
           },

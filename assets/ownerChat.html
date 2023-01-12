@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="ownerChat.css" rel="stylesheet" />
+    <title>세탁센터 | 사장님 대화방</title>
+  </head>
+  <body>
+    <div id="contentWrap">
+        <nav>
+            <button class= "reverse" id="logoutBtn">뒤로가기</button>
+        </nav>
+            <div id="chatWrap">
+                <div id="chatHeader">Everyone</div>
+                <div id="chatLog">
+                    <div class="anotherMsg">
+                        <span class="anotherName">Jo</span>
+                        <span class="msg">Hello, Nice to meet you.</span>
+                    </div>
+                    <div class="myMsg">
+                        <span class="msg">Nice to meet you, too.</span>
+                    </div>
+                </div>
+                <div class="enter" id="enter"></div>
+                <div class="myMsg">
+                    <span class="msg" id="messages"></span>
+                </div>
+                <form id="chatForm" name="publish">
+                    <input type="text" autocomplete="off" size="30" id="message" placeholder="메시지를 입력하세요">
+                    <input type="submit" value="보내기">
+                </form>
+            </div>
+            <div id="memberWrap">
+                <div id="memberList">
+                    <div id="memberHeader">사람</div>
+                    <div id="memberSelect">ㅇㅇ</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"
+  ></script>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+    $(document).ready(function () {
+        getSelf(function (owner) {
+            let shopName = owner.shopName
+
+            const socket = io.connect("/");
+            socket.emit("room2")
+            const enter = {message: `${shopName} 님이 입장했습니다.`}
+        
+            socket.emit('enterMessage', JSON.stringify(enter));
+        
+            socket.on('enterMessage', (msg) => {
+        
+                enterMessage(msg);
+            });
+    })
+})
+
+    function enterMessage(message) {
+        let messageElem = document.createElement('div');
+        const enter = JSON.parse(message);
+        messageElem.textContent = enter.message
+        document.getElementById('enter').append(messageElem);
+    }
+
+
+    socket.on('usercount', (count) => {
+        console.log("현재 " + count + "명이 서버에 접속해있습니다.");
+    });
+
+    document.forms.publish.onsubmit = function() {
+
+        let outgoingMessage = this.message.value;      
+        const obj = { "type": "message", "params": { "value": outgoingMessage }} 
+        socket.emit('message', JSON.stringify(obj));
+        return false;
+    };
+
+    socket.on('message', (msg) => {
+
+        showMessage(msg);
+    });
+
+    function showMessage(message) {
+        let messageElem = document.createElement('div');
+        const obj = JSON.parse(message);
+        messageElem.textContent = obj.params.value;
+        document.getElementById('messages').append(messageElem);
+    }
+
+    function getSelf(callback) {
+        $.ajax({
+            type: 'GET',
+            url: '/api/log/owner',
+            headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+            success: function (response) {
+            callback(response.owner);
+            },
+            error: function (xhr, status, error) {
+            if (status == 401) {
+                alert('로그인이 필요합니다.');
+            } else {
+                localStorage.clear();
+                alert('알 수 없는 문제가 발생했습니다. 관리자에게 문의하세요.');
+            }
+            window.location.href = '/';
+            },
+        });
+    }
+
+    </script>
+  </body>
+</html>

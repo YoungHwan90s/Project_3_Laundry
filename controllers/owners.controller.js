@@ -43,13 +43,16 @@ class OwnersController {
   };
 
   // 세탁서비스조회: 수거하기(작업물로 담기)
+  // owner 정보를 클라이언트로 response로 보내기
   addToMyWorks = async (req, res, next) => {
     try {
       const { ownerId } = res.locals.owner;
+      const { shopName } = res.locals.owner
       const { laundryId } = req.params;
 
       await this.ownerService.addToMyWorks(ownerId, laundryId);
-      return res.status(200).send({ msg: '선택하신 세탁물을 작업 목록에 저장하였습니다.' });
+      
+      return res.status(200).json({shopName});
     } catch (error) {
       res.status(400).json({ errorMessage: error.message });
     }
