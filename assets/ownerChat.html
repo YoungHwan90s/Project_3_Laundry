@@ -46,13 +46,13 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+    // 서버랑 소켓io handshake 하는 부분
+    const socket = io.connect("/");
     // 사장 정보를 꺼내기 위해, 소켓을 getSelf 콜백 함수로 감쌌다
     $(document).ready(function () {
         getSelf(function (owner) {
             let shopName = owner.shopName
 
-            // 서버랑 소켓io handshake 하는 부분
-            const socket = io.connect("/");
             // 이 html로 연결될때  ownerRoom 소켓으로 연결
             socket.emit("ownerRoom")
             // 누가 입장했는지 전달하는 메세지 변수
@@ -79,9 +79,6 @@
     }
 
 
-    socket.on('usercount', (count) => {
-        console.log("현재 " + count + "명이 서버에 접속해있습니다.");
-    });
 
     document.forms.publish.onsubmit = function() {
 
