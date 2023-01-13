@@ -46,16 +46,20 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+    // 사장 정보를 꺼내기 위해, 소켓을 getSelf 콜백 함수로 감쌌다
     $(document).ready(function () {
         getSelf(function (owner) {
             let shopName = owner.shopName
 
+            // 서버랑 소켓io handshake 하는 부분
             const socket = io.connect("/");
-            socket.emit("room2")
+            // 이 html로 연결될때  ownerRoom 소켓으로 연결
+            socket.emit("ownerRoom")
+            // 누가 입장했는지 전달하는 메세지 변수
             const enter = {message: `${shopName} 님이 입장했습니다.`}
-        
+            // 해당 메세지를 JSON화 해서 서버로 '입장' 메세지를 전송
             socket.emit('enterMessage', JSON.stringify(enter));
-        
+            // 서버에서 받은 '입장' 메세지 전송
             socket.on('enterMessage', (msg) => {
         
                 enterMessage(msg);
@@ -63,6 +67,10 @@
     })
 })
 
+    // div element를 추가하는 변수를 만들고
+    // message를 parse
+    // enter 변수 안에 있는 message 값만 꺼내기
+    // 위에 id='enter' 인 div tag에 append 
     function enterMessage(message) {
         let messageElem = document.createElement('div');
         const enter = JSON.parse(message);

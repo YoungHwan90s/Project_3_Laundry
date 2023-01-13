@@ -6,19 +6,23 @@ const io = socketIo(http); // http 객체를 Socket.io 모듈에 넘겨서 소�
 io.on('connection', (socket) => {
   console.log(socket.id, '새로운 소켓이 연결됐어요!');
 
-  socket.on('room1', () => {
-    socket.join('room1');
+  // 손님은 이 방으로 들어가게 하기
+  socket.on('customerRoom', () => {
+    socket.join('customerRoom');
     console.log(socket.rooms);
   });
 
-  socket.on('room2', () => {
-    socket.join('room2');
+  // 사장은 이 방으로 들어가게 하기
+  socket.on('ownerRoom', () => {
+    socket.join('ownerRoom');
     console.log(socket.rooms);
 
+    // 입장했을 때 클라이언트로부터 메세지를 전달 받음
     socket.on('enterMessage', (msg) => {
       console.log('Enter Message received: ' + msg);
 
-      io.emit('enterMessage', msg);
+      // 전달 받은 메세지를 '사장방' 한테만 메세지 보내기
+      io.to('ownerRoom').emit('enterMessage', msg);
     });
   });
 
