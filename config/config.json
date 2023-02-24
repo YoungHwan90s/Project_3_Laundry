@@ -1,16 +1,16 @@
 {
   "development": {
     "username": "root",
-    "password": "12341234",
+    "password": "Mysql2023!",
     "database": "Project_3_LaundryDB",
-    "host": "express-database.cbec9nj2lf6p.ap-northeast-2.rds.amazonaws.com",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "12341234",
+    "password": "Mysql2023!",
     "database": "Layered_Architecture_Pattern_test_db",
-    "host": "express-database.cbec9nj2lf6p.ap-northeast-2.rds.amazonaws.com",
+    "host": "127.0.0.1",
     "dialect": "mysql",
     "logging": false
   },

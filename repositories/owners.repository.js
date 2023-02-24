@@ -40,7 +40,7 @@ class OwnerRepository {
     const getLaundryIds = await OwnerWorkList.findAll({
       where: { ownerId },
     });
-
+    
     const getLaundryId = getLaundryIds.map((laundry) => {
       return [laundry.laundryId];
     });
